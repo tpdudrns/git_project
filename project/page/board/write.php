@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판</title>
-<link rel="stylesheet" type="text/css" href="/project/css/style_board_write.css" />
+<link rel="stylesheet" type="text/css" href="/git_project/project/css/style_board_write.css" />
 </head>
 <body>
     <div id="board_write">

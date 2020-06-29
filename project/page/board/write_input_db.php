@@ -1,12 +1,12 @@
 <?php
-include  $_SERVER['DOCUMENT_ROOT']."/db_info.php";
+include  $_SERVER['DOCUMENT_ROOT']."/git_project/db_info.php";
                 
 $id = $_POST['name'];                      //Writer
 $pw = $_POST['pw'];                        //Password
 $title = $_POST['title'];                  //Title
 $content = $_POST['content'];              //Content
 $date = date('Y-m-d H:i:s');            //Date
-$URL = 'http://192.168.56.1/project/menu_board.php';                    //return URL
+$URL = 'https://interiorsy.tk/git_project/project/menu_board.php';                    //return URL
  
 $query = "insert into board (idx, title, content, date, hit, name, pw) 
         values(null,'$title', '$content', '$date',0, '$id', '$pw')";
@@ -20,6 +20,9 @@ $result = $connect->query($query);
         }
         else{
                 echo "FAIL";
+                echo "에러메세지" . mysqli_error($query);
+                
+
         }
         mysqli_close($connect);
 ?>

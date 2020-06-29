@@ -12,7 +12,7 @@
 	//$db = new mysqli("3.34.52.222","sydb","cj642djk82t3qj9t3aydyre8gwjqma585yfd9kef","myDB");
 	// localhost = DB주소, web=DB계정아이디, 1234=DB계정비밀번호, post_board="DB이름"
 	// $db = new mysqli($servername, $username, $password, $dbname); 
-	$db = new mysqli("localhost:3306", "sy", "FJ44ouW*zDALcogAwZuUk^J%OtJM4y$8^6VcqBeD", "sydb");
+	$db = new mysqli("3.34.52.222", "sy", "FJ44ouW*zDALcogAwZuUk^J%OtJM4y$8^6VcqBeD", "sydb");
 	//$db = mysqli_connect("localhost:3306", "sy", "FJ44ouW*zDALcogAwZuUk^J%OtJM4y$8^6VcqBeD", "sydb");
 	$db->set_charset("utf8");
 
@@ -21,6 +21,7 @@
 		global $db;
 		return $db->query($sql);
 	}
-	$connect = new PDO("mysql:host=192.168.56.1;dbname=myDB", "sydb", "cj642djk82t3qj9t3aydyre8gwjqma585yfd9kef");
+	//$connect = new PDO("mysql:host=192.168.56.1;dbname=myDB", "sydb", "cj642djk82t3qj9t3aydyre8gwjqma585yfd9kef");
+	$connect = new PDO("mysql:host=3.34.52.222;dbname=sydb", "sy", "FJ44ouW*zDALcogAwZuUk^J%OtJM4y$8^6VcqBeD");
 
 ?>

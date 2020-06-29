@@ -1,8 +1,8 @@
 <?php
-    $servername = "192.168.56.1";
-    $username = "sydb";
-    $password = "cj642djk82t3qj9t3aydyre8gwjqma585yfd9kef"; 
-    $dbname = "myDB"; 
+    $servername = "3.34.52.222";
+    $username = "sy";
+    $password = "FJ44ouW*zDALcogAwZuUk^J%OtJM4y$8^6VcqBeD"; 
+    $dbname = "sydb"; 
 
     $connect = mysqli_connect($servername, $username, $password, $dbname) or die ("db_connection_error")
 ?>
