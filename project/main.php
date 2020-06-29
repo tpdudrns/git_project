@@ -29,7 +29,7 @@
     </header>
     <nav>
       <ul>
-        <li><a href = "main.php">홈</a></li>
+        <li><a href = "index.php">홈</a></li>
         <li><a href = "menu_intro.html" target="main_area">인테리어 소식</a></li>
         <li><a href = "menu_album.php">앨범</a></li>
         <li><a href = "page/product_board/menu_product.php" target="main_area">소품</a></li>
@@ -38,10 +38,13 @@
     </nav>
 
    <article>
+   <div class="main_image">
+      <img src="/git_project/project/images/main_pic.jpg" alt="" />
+    </div>
 <!--   <div class="main_image">
       <img src="images/main_pic.jpg" alt="" />
   </div> -->
-   <iframe name="main_area" src="" seamless="false" align="center" width="850px" height="600px" frameborder="0px"></iframe>
+   <!-- <iframe name="main_area" src="" seamless="false" align="center" width="850px" height="600px" frameborder="0px"></iframe> -->
    </article>
     <footer>
       ::: Contact : sinsy@gmail.com :::
@@ -67,9 +70,6 @@
   } 
 </script>
 <body onload="javascript:openPopup('popup.html')">
-<h2>Git Test again</h2>
-
-
 
 </body>
 </html>
