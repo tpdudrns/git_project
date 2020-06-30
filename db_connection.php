@@ -21,5 +21,5 @@
 		global $db;
 		return $db->query($sql);
 	}
-	$connect = new PDO("mysql:host=3.34.52.222;dbname=sydb", "sy", "FJ44ouW*zDALcogAwZuUk^J%OtJM4y$8^6VcqBeD")
+	//$connect = new PDO("mysql:host=3.34.52.222;dbname=sydb", "sy", "FJ44ouW*zDALcogAwZuUk^J%OtJM4y$8^6VcqBeD")
 ?>

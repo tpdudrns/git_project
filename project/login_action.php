@@ -1,7 +1,7 @@
 <?php
  
         session_start();
-        include  $_SERVER['DOCUMENT_ROOT']."/db_info.php";
+        include  $_SERVER['DOCUMENT_ROOT']."/git_proejct/proejct/db_info.php";
  
         //입력 받은 id와 password
         $id=$_POST['id'];
@@ -23,7 +23,7 @@
                         if(isset($_SESSION['userid'])){
                         ?>      <script>
                                         alert("로그인 되었습니다.");
-                                        location.replace("main.php");
+                                        location.replace("/index.php");
                                 </script>
                         <?php
                         } else{

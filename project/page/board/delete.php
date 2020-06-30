@@ -1,5 +1,5 @@
 <?php
-	include "db.php";
+	include "/git_proejct/db_connection.php";
 	
 	$get_index = $_GET['idx'];
 	$sql = mq("delete from board where idx='$get_index';");

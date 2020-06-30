@@ -4,7 +4,7 @@
 $username = "sydb";
 $password = "cj642djk82t3qj9t3aydyre8gwjqma585yfd9kef";
 $dbname = "myDB"; */
-include  $_SERVER['DOCUMENT_ROOT']."/db_info.php";
+include  $_SERVER['DOCUMENT_ROOT']."/git_project/proejct/db_info.php";
                 $connect = mysqli_connect($servername, $username, $password, $dbname) or die("fail");
                 //client가 입력한 데이터를 서버가 받는다. 
                 
