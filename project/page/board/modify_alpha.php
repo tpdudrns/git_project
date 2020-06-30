@@ -1,6 +1,6 @@
 <!--- 게시글 수정 -->
 <?php
-	include $_SERVER['DOCUMENT_ROOT']."/db_connection.php";
+	include $_SERVER['DOCUMENT_ROOT']."/git_project/db_connection.php";
    
 	$index = $_GET['idx'];
 	$sql = mq("select * from board where idx='$index';");

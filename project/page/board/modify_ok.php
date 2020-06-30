@@ -1,5 +1,5 @@
 <?php
-include  $_SERVER['DOCUMENT_ROOT']."/db_info.php";
+include  $_SERVER['DOCUMENT_ROOT']."/git_proejct/db_info.php";
 
 $index = $_GET['idx'];
 $username = $_POST['name'];

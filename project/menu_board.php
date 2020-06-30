@@ -159,7 +159,7 @@
                 { ?>
                   <a href='ck_read.php?idx=<?php echo $board["idx"];?>'><?php echo $title, $lockimg;
                 }else{ ?>
-                <a href="page/board/read.php?idx=<?php echo $board["idx"];?>"><?php echo $title; }?></a></td>
+                <a href="/git_project/project/page/board/read.php?idx=<?php echo $board["idx"];?>"><?php echo $title; }?></a></td>
                 <td width="120"> <?php echo $board['name']; ?> </td>
                 <td width="100"> <?php echo $board['date']; ?> </td>
                 <td width="100"> <?php echo $board['hit']; ?> </td>
