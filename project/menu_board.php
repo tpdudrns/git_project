@@ -112,7 +112,7 @@
               $page = 1;
             }
               // board테이블에서 index를 기준으로 내림차순해서 5개까지 표시
-              $sql = mq("select * from board");
+              $sql = mq("select * from freeboard");
               // 게시판 총 기록 수 
               $total_row_num = mysqli_num_rows($sql);
               //한 페이지 당 보여줄 게시글 개수
@@ -140,14 +140,14 @@
               //시작번호 (page-1)에서 $list를 곱한다.
               $start_num = ($page-1) * $list_limit_per_page;
               //사용자가 선택한 게시글의 시작번호를 설정
-              $sql_page_starting_number = mq("select * from board order by idx desc limit $start_num, $list_limit_per_page");
+              $sql_page_starting_number = mq("select * from freeboard order by idx desc limit $start_num, $list_limit_per_page");
               while($board = $sql_page_starting_number->fetch_array()){
                 $title=$board["title"];
                   if(strlen($title)>30) {
                     $title=str_replace($board["title"],mb_substr($board["title"],0,30,"utf-8")."...",$board["title"]);
                   }
 /*                   $sql_reply_number = mq("select * from reply where con_num='".$board['idx']."'");
-                  $req_count = mysqli_num_rows($sql_reply_number); */
+                  $req_count = mysqli_num_rows($sql_reply_number); */ 
           ?>
           <tbody>
             <tr>
@@ -160,6 +160,7 @@
                   <a href='ck_read.php?idx=<?php echo $board["idx"];?>'><?php echo $title, $lockimg;
                 }else{ ?>
                 <a href="/git_project/project/page/board/read.php?idx=<?php echo $board["idx"];?>"><?php echo $title; }?></a></td>
+                
                 <td width="120"> <?php echo $board['name']; ?> </td>
                 <td width="100"> <?php echo $board['date']; ?> </td>
                 <td width="100"> <?php echo $board['hit']; ?> </td>

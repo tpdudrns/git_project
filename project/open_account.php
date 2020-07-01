@@ -21,9 +21,9 @@
       <li>사용자 아이디</li>
       <li><input type="text" name= "id" placeholder="아이디" title="아이디 입력"></li>
       <li>비밀번호</li>
-      <li><input type="password" name= "password" placeholder="비밀번호" title="비밀번호 입력"></li>
+      <li><input type="password" name= "pw" placeholder="비밀번호" title="비밀번호 입력"></li>
       <li>비밀번호 확인</li>
-      <li><input type="password" name= "password" placeholder="비밀번호" title="비밀번호 입력"></li>
+      <li><input type="password" name= "pw" placeholder="비밀번호" title="비밀번호 입력"></li>
       <li>닉네임</li>
       <li><input type="text" name= "nickname" placeholder="닉네임" title="닉네임 입력"></li>
       <li><input type="submit" value="Join"></li>

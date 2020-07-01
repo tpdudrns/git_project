@@ -20,7 +20,7 @@
     <h2>로그인</h2>
     <ul>
       <li><input type="text" name= "id" placeholder="아이디" title="아이디 입력"></li>
-      <li><input type="password" name= "password" placeholder="비밀번호" title="비밀번호 입력"></li>
+      <li><input type="password" name= "pw" placeholder="비밀번호" title="비밀번호 입력"></li>
       <li><input type="submit" value="로그인"></li>
     </ul>
     <div>

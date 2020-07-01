@@ -1,5 +1,6 @@
 <?php
 	include $_SERVER['DOCUMENT_ROOT']."/git_project/db_connection.php"; /* db load */
+	session_start();
 ?>
 <!doctype html>
 <head>
@@ -44,10 +45,10 @@ li {list-style:none;}
 <body>
 	<?php
 		$number = $_GET['idx']; /* bno함수에 idx값을 받아와 넣음*/
-		$hit = mysqli_fetch_array(mq("select * from board where idx ='".$number."'"));
+		$hit = mysqli_fetch_array(mq("select * from freeboard where idx ='".$number."'"));
 		$hit = $hit['hit'] + 1;
-		$fet = mq("update board set hit = '".$hit."' where idx = '".$number."'");
-		$sql = mq("select * from board where idx='".$number."'"); /* 받아온 idx값을 선택 */
+		$fet = mq("update freeboard set hit = '".$hit."' where idx = '".$number."'");
+		$sql = mq("select * from freeboard where idx='".$number."'"); /* 받아온 idx값을 선택 */
 		$board = $sql->fetch_array();
 	?>
 <!-- 글 불러오기 -->
@@ -64,7 +65,7 @@ li {list-style:none;}
 	<div id="bo_ser">
 		<ul>
 			<li><a href="/git_project/project/menu_board.php">[목록으로]</a></li>
-			<li><a href="modify_alpha.php?idx=<?php echo $board['idx']; ?>">[수정]</a></li>
+			<li><a href="modify_charly.php?idx=<?php echo $board['idx']; ?>">[수정]</a></li>
 			<li><a href="delete.php?idx=<?php echo $board['idx']; ?>">[삭제]</a></li>
 		</ul>
 	</div>

@@ -1,3 +1,15 @@
+<?php
+    session_start();
+    $URL = "/";
+    if(!isset($_SESSION['userid'])) {
+    ?>
+    <script>
+    alert("로그인이 필요합니다");
+    location.replace("<?php echo $URL?>");
+    </script>
+    <?php
+    }
+?>
 <!doctype html>
 <head>
 <meta charset="UTF-8">
@@ -17,16 +29,17 @@
                     <div class="wi_line"></div>
                     <h2> 작성자 </h2>
                     <div id="in_name">
-                        <textarea name="name" id="uname" rows="1" cols="55" placeholder="작성자" maxlength="100" required></textarea>
+                        <!-- <textarea name="name" id="uname" rows="1" cols="55" placeholder="작성자" maxlength="100" required></textarea> -->
+                        <input type="hidden" name="name" value="<?=$_SESSION['userid']?>"><?=$_SESSION['userid']?>
                     </div>
                     <div class="wi_line"></div>
                     <h2> 내용 </h2>
                     <div id="in_content">
                         <textarea name="content" id="ucontent" placeholder="내용을 입력하세요" required></textarea>
                     </div>
-                    <div> 비밀번호 </div>
+<!--                     <div> 비밀번호 </div>
                     <div id="in_pw">
-                        <input type="password" name="pw" id="upw"  placeholder="비밀번호" required />  
+                        <input type="password" name="pw" id="upw"  placeholder="비밀번호" required />   -->
                     </div>
                     <div class="bt_se">
                         <button type="submit">글 작성</button>

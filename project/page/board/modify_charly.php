@@ -5,12 +5,23 @@ ini_set("display_errors", 1);
 	//include $_SERVER['DOCUMENT_ROOT']."/git_project/db_connection.php";
     include "db_connection.php";
 
-    
+    //session_start();
+    $URL = "/git_project/project/menu_board.php";
+
 
 	$index = $_GET['idx'];
 	$sql = mq("select * from freeboard where idx='$index';");
-	$board = $sql->fetch_array();
- ?>
+    $board = $sql->fetch_array();
+    
+    if(!isset($_SESSION['userid'])) {
+        ?>              <script>
+                                alert("권한이 없습니다.");
+                                location.replace("<?php echo $URL?>");
+                        </script>
+        <?php   }
+                else if($_SESSION['userid']==$board['name']) {
+        ?>
+
 <!doctype html>
 <head>
 <meta charset="UTF-8">
@@ -46,5 +57,13 @@ ini_set("display_errors", 1);
                 </form>
             </div>
         </div>
+        <?php   }
+                else {
+        ?>              <script>
+                                alert("권한이 없습니다.");
+                                location.replace("<?php echo $URL?>");
+                        </script>
+        <?php   }
+        ?>
     </body>
 </html>

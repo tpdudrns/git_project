@@ -1,13 +1,17 @@
 <?php
-include  $_SERVER['DOCUMENT_ROOT']."/git_proejct/db_info.php";
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+// include  $_SERVER['DOCUMENT_ROOT']."/git_proejct/db_info.php";
+include "db_info.php";
 
 $index = $_GET['idx'];
 $username = $_POST['name'];
-$userpw = password_hash($_POST['pw'], PASSWORD_DEFAULT);
+//$userpw = password_hash($_POST['pw'], PASSWORD_DEFAULT);
+//$userpw = $_POST['pw'];
 $title = $_POST['title'];
 $content = $_POST['content'];
 $date = date('Y-m-d H:i:s');
-$query = "update board set title='$title', content='$content', date='$date' where idx=$index";
+$query = "update freeboard set title='$title', name='$username', content='$content', date='$date' where idx=$index";
 $result = $connect->query($query);
 
         if($result) {
