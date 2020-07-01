@@ -39,11 +39,12 @@
   #write_btn {
 	position: absolute;
   margin-top:20px;
+  margin-bottom: 5px;
   right: 0;
   }
   #page_num {
 	font-size: 14px;
-	margin-left: 260px;
+	margin-left: 350px;
 	margin-top:30px; 
   }
   #page_num ul li {
@@ -66,13 +67,14 @@
     <header>
       <div id="login_area">
         <ul>
+          <li><a href = "page/product_board/cart.php" target="main_area">장바구니 / </a?</li>
           <?php
             session_start();
             if(!isset($_SESSION['userid'])) {
               echo "<li><a href = \"test_login.php\">로그인</a></li>";
               } else {
               $id = $_SESSION['userid'];
-              echo "<li>$id 님 환영합니다.</a></li>";
+              echo "<li>$id 님 환영합니다. / </a></li>";
               echo "<li><a href = \"logout_action.php\">로그아웃</a></li>";
               }
           ?>
@@ -84,7 +86,7 @@
     </header>
     <nav>
       <ul>
-        <li><a href = "main.php">홈</a></li>
+        <li><a href = "/">홈</a></li>
         <li><a href = "menu_intro.html" target="main_area">인테리어 소식</a></li>
         <li><a href = "menu_album.php">앨범</a></li>
         <li><a href = "page/product_board/menu_product.php" target="main_area">소품</a></li>
@@ -210,7 +212,7 @@
             ?>
           </ul>
         </div>
-        <a href="page/board/write.php"><button>글쓰기</button></a>
+        <a href="page/board/write_board.php"><button>글쓰기</button></a>
     </div>
   </div>
     <!--   <footer>

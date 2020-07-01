@@ -20,13 +20,14 @@
         <header>
             <div id="login_area">
                 <ul>
+                    <li><a href = "page/product_board/cart.php" target="main_area">장바구니 / </a?</li>
                     <?php
                     session_start();
                     if(!isset($_SESSION['userid'])) {
                         echo "<li><a href = \"test_login.php\">로그인</a></li>";
                     } else {
                         $id = $_SESSION['userid'];
-                        echo "<li>$id 님 환영합니다.</a></li>";
+                        echo "<li>$id 님 환영합니다. / </a></li>";
                         echo "<li><a href = \"logout_action.php\">로그아웃</a></li>";
                     }
                     ?>
@@ -38,7 +39,7 @@
         </header>
         <nav>
             <ul>
-                <li><a href = "main.php">홈</a></li>
+                <li><a href = "/">홈</a></li>
                 <li><a href = "menu_intro.html" target="main_area">인테리어 소식</a></li>
                 <li><a href = "menu_album.php">앨범</a></li>
                 <li><a href = "page/product_board/menu_product.php" target="main_area">소품</a></li>

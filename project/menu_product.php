@@ -66,13 +66,14 @@
     <header>
       <div id="login_area">
         <ul>
+          <li><a href = "page/product_board/cart.php" target="main_area">장바구니 / </a?</li>
           <?php
             session_start();
             if(!isset($_SESSION['userid'])) {
               echo "<li><a href = \"test_login.php\">로그인</a></li>";
               } else {
               $id = $_SESSION['userid'];
-              echo "<li>$id 님 환영합니다.</a></li>";
+              echo "<li>$id 님 환영합니다. / </a></li>";
               echo "<li><a href = \"logout_action.php\">로그아웃</a></li>";
               }
           ?>
