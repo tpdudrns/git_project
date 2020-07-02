@@ -1,148 +1,51 @@
-<?php 
-  include "db_connection.php"; 
-?>
+<?php include "db.php"; 
 
+//error_reporting(E_ALL);
+//ini_set("display_errors", 1);
+
+?>
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>제품 리스트</title>
-  <script src="jquery-3.5.1.min.js"></script>
-  <!-- <link rel="stylesheet" type="text/css" href="/project/css/style_home.css" /> -->
+  <title>Welcome, 메인 페이지</title>
+<link rel="stylesheet" type="text/css" href="/git_project/project/css/style_home.css">
+<link rel="stylesheet" type="text/css" href="/git_project/project/css/style_product_list.css">
 </head>
-<style>
-
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  /* background-color: #2196F3; */
-  padding: 10px;
-}
-.grid-item {
-  /* background-color: rgba(255, 255, 255, 0.8); */
-  /* border: 1px solid rgba(0, 0, 0, 0.8); */
-  padding: 20px;
-  font-size: 30px;
-  display: flex;
-  justify-content: center;
-}
-
-img {
-  width: 200px;
-  height: 400px;
-}
-
-.list-table td {
-    height:40px;
-	  border-top:2px solid black;
-	  border-bottom:1px solid #CCC;
-	  font-weight: bold;
-	  font-size: 17px;
-  }
-
-  * {
-    margin: 50 auto;
-  	padding: 0;
-  	font-family: 'Malgun gothic','Sans-Serif','Arial';
-  }
-
-  .tc {
-    text-align:center;
-  }
-
-  #board {
-    width: 100%;
-    text-align:center;
-    position: static;
-    background:#fff;
-  }
-
-  .list_table {
-    width: 100%;
-    text-align: center;
-  }
-
-  .list_table thead th {
-    height:40px;
-	  border-top:2px solid black;
-	  border-bottom:1px solid #CCC;
-	  font-weight: bold;
-	  font-size: 17px;
-  }
-
-  #write_btn {
-	position: absolute;
-  margin-top:20px;
-  right: 0;
-  }
-  #page_num {
-	font-size: 14px;
-	margin-left: 260px;
-	margin-top:30px; 
-  }
-  #page_num ul li {
-	float: left;
-	margin-left: 10px; 
-	text-align: center;
-  }
-  .mark_red {
-	font-weight: bold;
-	color:red;
-  }
-
-  ul {
-  list-style:none;
-  }
-
-
-  .filterDiv {
-    float: left;
-    background-color: black;
-    color: white;
-    width: 100px;
-    line-height: 30px;
-    text-align: center;
-    margin: 2px;
-    display: none;
-    border: 0; 
-    outline: 0;
-}
-
-.image_description {
-    display: flex;
-    justify-content: center;
-    float: center;
-}
-
-.show {
-    display: block;
-}
-.container {
-    overflow: hidden;
-}
-
-/* Style the buttons */
-.btn {
-    border:none;
-    outline: none;
-    padding: 12px 16px;
-    background-color: #f1f1f1;
-    cursor: pointer;
-}
-.btn:hover {
-    background-color: #ddd;
-}
-.btn.active {
-    background-color: #effe09;
-    color: white;
-}
-
-#album_btn_container {
-  float: left;
-}
-
-</style>
 <body>
   <div class = "wrap">
+    <header>
+      <div id="login_area">
+        <ul>
+        <li><a href = "page/product_board/cart.php" target="main_area">장바구니 / </a?</li>
+          <?php
+            session_start();
+            if(!isset($_SESSION['userid'])) {
+              echo "<li><a href = \"test_login.php\">로그인</a></li>";
+            } else {
+              $id = $_SESSION['userid'];
+              echo "<li>$id 님 환영합니다. / </a></li>";
+              echo "<li><a href = \"/logout_action.php\">로그아웃</a></li>";
+            }
+          ?>
+          <!-- <li><a href = "test_login.php">로그인</a></li> -->
+        </ul>
+      </div>
+      <div id="title">
+        <h1>SY's Interior Story</h1> 
+      </div>
+    </header>
+    <nav>
+      <ul>
+        <li><a href = "main.php">홈</a></li>
+        <li><a href = "menu_intro.html" target="main_area">인테리어 소식</a></li>
+        <li><a href = "/git_project/project/menu_album.php">앨범</a></li>
+        <li><a href = "/git_project/project/page/product_board/menu_product.php" target="main_area">소품</a></li>
+        <li><a href = "/git_project/project/menu_board.php">게시판</a></li>
+      </ul>
+    </nav>
+
+   <article>
+   <div class = "wrap">
     <div id="board">
         <div class="container">
             <form action = "menu_album_modern.php" method="get">  
@@ -171,7 +74,8 @@ img {
               $page = 1;
             }
               // board테이블에서 index를 기준으로 내림차순해서 5개까지 표시
-              $sql = mq("select * from board");
+              $sql = mq("select * from products");
+              
               // 게시판 총 기록 수 
               $total_row_num = mysqli_num_rows($sql);
               //한 페이지 당 보여줄 게시글 개수
@@ -199,11 +103,11 @@ img {
               //시작번호 (page-1)에서 $list를 곱한다.
               $start_num = ($page-1) * $list_limit_per_page;
               //사용자가 선택한 게시글의 시작번호를 설정
-              $sql_page_starting_number = mq("select * from product order by idx desc limit $start_num, $list_limit_per_page");
+              $sql_page_starting_number = mq("select * from products order by idx desc limit $start_num, $list_limit_per_page");
               while($board = $sql_page_starting_number->fetch_array()){
-                $title=$board["title"];
+                $title=$board["name"];
                   if(strlen($title)>30) {
-                    $title=str_replace($board["title"],mb_substr($board["title"],0,30,"utf-8")."...",$board["title"]);
+                    $title=str_replace($board["name"],mb_substr($board["name"],0,30,"utf-8")."...",$board["name"]);
                   }
 /*                   $sql_reply_number = mq("select * from reply where con_num='".$board['idx']."'");
                   $req_count = mysqli_num_rows($sql_reply_number); */
@@ -211,16 +115,19 @@ img {
               <div class="grid-item">
                 <table class="list-table">
                   <tr>
-                    <th><a href="view.php?idx=<?php echo $board["idx"];?>"><img src="/practice-show-image.php?image_id=2"/></a></th>
+                    <th><a href="view.php?idx=<?php echo $board["idx"];?>"></a></th>
+                  </tr>
+                  <tr>    
+                    <td><img src="<?php echo $data["imgurl"];?>" width="150"></td>
                   </tr>
                   <tr>
                     <td width="150"><?php echo $title;?></td>
                   </tr>
                   <tr>
-                    <td width="150"><?php echo $board['content']?></td>
+                    <td width="150"><?php echo $board['comment']?></td>
                   </tr>
                    <tr>
-                    <td width="50$"><?php echo $board['name']?></td>
+                    <td width="50"><?php echo $board['price']?></td>
                     <td>원</td>
                   </tr>
                 </table>
@@ -269,10 +176,39 @@ img {
             ?>
           </ul>
         </div>
-        <a href="write.php"><button>글쓰기</button></a>
+        <a href="/git_project/project/page/product_board/write_product.php"><button>글쓰기</button></a>
     </div>
   </div>
-<script>
+
+<!--   <div class="main_image">
+      <img src="images/main_pic.jpg" alt="" />
+  </div> -->
+   <!-- <iframe name="main_area" src="" seamless="false" align="center" width="850px" height="600px" frameborder="0px"></iframe> -->
+   </article>
+    <footer>
+      ::: Contact : sinsy@gmail.com :::
+    </footer>
+  </div>
+<script type="text/javascript"> 
+  function getCookie(name) {
+     var cookie = document.cookie; 
+     if (document.cookie != "") { 
+       var cookie_array = cookie.split("; ");
+        for ( var index in cookie_array) { 
+          var cookie_name = cookie_array[index].split("=");
+           if (cookie_name[0] == "popupYN") {
+              return cookie_name[1];
+               }
+        } 
+      } return ;
+  } 
+                 
+  function openPopup(url) {
+      var cookieCheck = getCookie("popupYN");
+      if (cookieCheck != "N") window.open(url, '', 'width=450,height=750,left=0,top=0')
+  } 
+
+
   //앨범 카테고리 필터
     filterSelection("all")
     function filterSelection(selectedFilter) {
@@ -312,8 +248,7 @@ img {
     }
 
 </script>
-    <!--   <footer>
-      ::: Contact : sinsy@gmail.com :::
-    </footer> -->
+<body onload="javascript:openPopup('popup.html')">
+
 </body>
 </html>
