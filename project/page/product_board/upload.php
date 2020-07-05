@@ -46,7 +46,7 @@ if ($uploadOk == 0) {
 		- 파일형식
 		*/
 		$filename = $_FILES["fileToUpload"]["name"];
-		$imgurl = "https://interiorsy.tk/uploads/". $_FILES["fileToUpload"]["name"];
+		$imgurl = "https://interiorsy.tk/uploads/".$_FILES["fileToUpload"]["name"];
 		$size = $_FILES["fileToUpload"]["size"];
 
         //include_once '.:/usr/share/php/config.php';
@@ -69,7 +69,7 @@ if ($uploadOk == 0) {
 		mysqli_close($conn);
 
         echo "<p>The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.</p>";
-		//echo "<br><img src=/uploads/". basename( $_FILES["fileToUpload"]["name"]). " width=400>";
+		echo "<br><img src=/uploads/". basename( $_FILES["fileToUpload"]["name"]). " width=400>";
 		echo "<br><button type='button' onclick='history.back()'>돌아가기</button>";
     } else {
         echo "<p>Sorry, there was an error uploading your file.</p>";
