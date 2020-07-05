@@ -77,6 +77,18 @@
     color:white;
     background-color:black;
   }
+  #total_price_area {
+    background-color:gray;
+    style:bold;
+  }
+  #total_price_value {
+    text-align:center;
+  }
+  #total_price {
+    background-color:black;
+    color:white;
+    style:bold;
+  }
 </style>
 <body>
   <div class = "wrap">
@@ -150,7 +162,8 @@
             </td>
             <td><?php echo number_format ($values["item_price"]); ?>원
             </td>
-            <td><?php echo number_format($values["item_quantity"] * $values["item_price"], 0); ?>원
+            <!-- // 장바구니에 항목당 금액*수량 계산 -->
+            <td><?php echo number_format($values["item_quantity"] * $values["item_price"]); ?>원
             </td>
             <td><a href="cart.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>
         </tr>
@@ -159,6 +172,24 @@
         $total = $total + ($values["item_quantity"] * $values["item_price"]);
         }
     ?>
+        <tr>
+            <td colspan="3" align="right" id="total_price_area">총 상품 금액</td>
+            <td align="center"id="total_price_value"> <?php echo number_format($total); ?></td>
+            <td>원</td>
+        </tr>
+        <?php
+        $total = $total + (9000);
+        ?>
+        <tr>
+            <td colspan="3" align="right" id="total_price_area">착불 배송비</td>
+            <td align="center"id="total_price_value"> 9,000</td>
+            <td>원</td>
+        </tr>
+        <tr>
+            <td colspan="3" align="right" id="total_price">총 결제 금액</td>
+            <td align="center"id="total_price_value"> <?php echo number_format($total); ?></td>
+            <td>원</td>
+        </tr>
     <?php
     } else {
         echo '
