@@ -14,7 +14,7 @@
                         // 쿠키 데이터의 보존시간
                         $preserve_time = 360;
                         setcookie("shoppig_cart", $item_data, time() - $preserve_time);
-                        header("location:cart.php?remove=1");
+                        header("location:product_cart.php?remove=1");
                     }
                     
                 }
@@ -22,7 +22,7 @@
             if($_GET["action"] == "clear") {
                 // clear 버튼을 눌렀을 때에 데이터 보존시간을 0으로 만들어서 데이터를 삭제한다.
                 setcookie("shopping_cart", "", time() - $preserve_time);
-                header("location:cart.php?clearall=1");
+                header("location:product_cart.php?clearall=1");
             }
 
         }
@@ -30,7 +30,7 @@
     	if(isset($_GET["success"])) {
             $message = '
             <div class="alert alert-success alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <a href="product_cart.php" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 장바구니에 상품이 추가되었습니다.
             </div>
             ';
@@ -38,7 +38,7 @@
         if(isset($_GET["remove"])) {
             $message = '
                 <div class="alert alert-success alert-dismissable">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <a href="product_cart.php" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     Item removed from Cart
                 </div>
             ';
@@ -46,7 +46,7 @@
         if (isset($_GET["clearall"])) {
             $message = '
             <div class="alert alert-success alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <a href="product_cart.php" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 장바구니를 비웠습니다...
             </div>
             ';
@@ -79,23 +79,39 @@
   }
   #total_price_area {
     background-color:gray;
+    color:white;
     style:bold;
   }
+  #total_product_price {
+    text-align:center;
+  }
+
   #total_price_value {
     text-align:center;
+    color:red;
   }
   #total_price {
     background-color:black;
     color:white;
-    style:bold;
+    font-weight: bold;
   }
+  img {
+    padding: 20px;
+    padding-bottom: 5px;
+    width: 250px;
+    height: 330px;
+  }
+  #product_name {
+    font-weight:bold;
+  }
+
 </style>
 <body>
   <div class = "wrap">
     <header>
       <div id="login_area">
         <ul>
-        <li><a href = "page/product_board/cart.php" target="main_area">장바구니 / </a?</li>
+        <li><a href = "page/product_board/product_cart.php" target="main_area">장바구니 / </a?</li>
           <?php
             session_start();
             if(!isset($_SESSION['userid'])) {
@@ -131,7 +147,7 @@
 <div class="table-responsive">
     <?php echo $message; ?>
 <div align="right">
-    <a href="cart.php?action=clear" id="clear_cart_text"><b>Clear Cart</b></a>
+    <a href="product_cart.php?action=clear" id="clear_cart_text"><b>Clear Cart</b></a>
 </div>
 <table class="table table-bordered">
     <tr>
@@ -154,7 +170,7 @@
         foreach($cart_data as $keys => $values) {
     ?>
         <tr>
-            <td>
+            <td id="product_name">
               <img src="<?php echo $values["item_imgurl"];?>">
               <?php echo $values["item_name"]; ?>
             </td>
@@ -174,7 +190,7 @@
     ?>
         <tr>
             <td colspan="3" align="right" id="total_price_area">총 상품 금액</td>
-            <td align="center"id="total_price_value"> <?php echo number_format($total); ?></td>
+            <td align="center"id="total_product_price"> <?php echo number_format($total); ?></td>
             <td>원</td>
         </tr>
         <?php
@@ -182,13 +198,13 @@
         ?>
         <tr>
             <td colspan="3" align="right" id="total_price_area">착불 배송비</td>
-            <td align="center"id="total_price_value"> 9,000</td>
+            <td align="center"id="total_product_price"> 9,000</td>
             <td>원</td>
         </tr>
         <tr>
             <td colspan="3" align="right" id="total_price">총 결제 금액</td>
             <td align="center"id="total_price_value"> <?php echo number_format($total); ?></td>
-            <td>원</td>
+            <td id="total_price_value">원</td>
         </tr>
     <?php
     } else {
