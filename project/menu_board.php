@@ -67,7 +67,7 @@
     <header>
       <div id="login_area">
         <ul>
-          <li><a href = "page/product_board/cart.php" target="main_area">장바구니 / </a?</li>
+          <li><a href = "page/product_board/product_cart.php" target="main_area">장바구니 / </a?</li>
           <?php
             session_start();
             if(!isset($_SESSION['userid'])) {
@@ -89,7 +89,7 @@
         <li><a href = "/">홈</a></li>
         <li><a href = "menu_intro.html" target="main_area">인테리어 소식</a></li>
         <li><a href = "menu_album.php">앨범</a></li>
-        <li><a href = "page/product_board/menu_product.php" target="main_area">소품</a></li>
+        <li><a href = "/git_project/project/menu_product_list.php">소품</a></li>
         <li><a href = "menu_board.php">게시판</a></li>
       </ul>
     </nav>
