@@ -113,24 +113,21 @@ ini_set("display_errors", 1);
                   $req_count = mysqli_num_rows($sql_reply_number); */
           ?>
               <div class="grid-item">
-                <table class="list-table">
-                  <tr>
-                    <th><a href="view.php?idx=<?php echo $board["idx"];?>"></a></th>
-                  </tr>
-                  <tr>    
-                    <td><img src="<?php echo $board["imgurl"];?>" width="150"></td>
-                  </tr>
-                  <tr>
-                    <td width="150"><?php echo $title;?></td>
-                  </tr>
-                  <tr>
-                    <td width="150"><?php echo $board['comment']?></td>
-                  </tr>
-                   <tr>
-                    <td width="50"><?php echo $board['price']?></td>
-                    <td>원</td>
-                  </tr>
-                </table>
+                <div class="product_description">
+                  <img src="<?php echo $board["imgurl"];?>" width="150">
+                </div>
+                <div class="product_description" id="product_title">
+                  <?php echo $title;?>
+                </div>
+                <div id="bo_line"></div>
+                <div class="product_description">
+                  "<?php echo $board['comment']?>"
+                </div>
+                <div class="product_description" id="price">
+                  <?php echo number_format ($board['price']); ?> 원
+                </div>
+                <div id="bo_line"></div>
+                
               </div>
           <?php } ?>
         </div>
