@@ -1,17 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
 .grid-container {
     width: 850px;
     display: grid;
     grid-template-columns: auto auto auto;
+    grid-template-rows: repeat(3, 1fr);
     /* background-color: #2196F3; */
     padding: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
   .grid-item {
     /* background-color: rgba(255, 255, 255, 0.8); */
     /* border: 1px solid rgba(0, 0, 0, 0.8); */
     padding: 20px;
-    font-size: 30px;
-    display: flex;
-    justify-content: center;
+    align-self: normal;
+  }
+
+  .product_description {
+    font-size: 15px;
+    font-family: "Nanum Gothic", sans-serif;
+  }
+  #product_title {
+    font-weight: bold;
+    font-size: 20px;
+  }
+  #price {
+    padding-top: 5px;
+    font-weight: bold;
+  }
+
+  #bo_line {
+    
+    height:2px;
+    background: gray;
   }
   
   img {
