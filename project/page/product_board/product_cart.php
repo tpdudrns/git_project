@@ -64,6 +64,7 @@
 <style>
   td {
     text-align: center;
+    border-bottom:1px solid #CCC;
   }
    th {
     height:40px;
@@ -71,6 +72,10 @@
 	  border-bottom:1px solid #CCC;
 	  font-weight: bold;
 	  font-size: 17px;
+  }
+  #clear_cart_text {
+    color:white;
+    background-color:black;
   }
 </style>
 <body>
@@ -114,7 +119,7 @@
 <div class="table-responsive">
     <?php echo $message; ?>
 <div align="right">
-    <a href="cart.php?action=clear"><b>Clear Cart</b></a>
+    <a href="cart.php?action=clear" id="clear_cart_text"><b>Clear Cart</b></a>
 </div>
 <table class="table table-bordered">
     <tr>
@@ -137,11 +142,13 @@
         foreach($cart_data as $keys => $values) {
     ?>
         <tr>
-            <td><?php echo $values["item_name"]; ?>
+            <td>
+              <img src="<?php echo $values["item_imgurl"];?>">
+              <?php echo $values["item_name"]; ?>
             </td>
             <td><?php echo $values["item_quantity"]; ?>
             </td>
-            <td><?php echo $values["item_price"]; ?>
+            <td><?php echo number_format ($values["item_price"]); ?>원
             </td>
             <td><?php echo number_format($values["item_quantity"] * $values["item_price"], 0); ?>원
             </td>
