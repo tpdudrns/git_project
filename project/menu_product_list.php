@@ -1,7 +1,7 @@
 <?php include "db.php"; 
 
-//error_reporting(E_ALL);
-//ini_set("display_errors", 1);
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
         <ul>
         <li><a href = "page/product_board/cart.php" target="main_area">장바구니 / </a?</li>
           <?php
-            session_start();
+            //session_start();
             if(!isset($_SESSION['userid'])) {
               echo "<li><a href = \"test_login.php\">로그인</a></li>";
             } else {
@@ -118,7 +118,7 @@
                     <th><a href="view.php?idx=<?php echo $board["idx"];?>"></a></th>
                   </tr>
                   <tr>    
-                    <td><img src="<?php echo $data["imgurl"];?>" width="150"></td>
+                    <td><img src="<?php echo $board["imgurl"];?>" width="150"></td>
                   </tr>
                   <tr>
                     <td width="150"><?php echo $title;?></td>
