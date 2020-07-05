@@ -24,15 +24,16 @@
 			'item_id'        => $_POST["hidden_id"],
 			'item_name'      => $_POST["hidden_name"],
 			'item_price'     => $_POST["hidden_price"],
-			'item_quantity'  => $_POST["quantity"]
+      'item_quantity'  => $_POST["quantity"],
+      'item_imgurl'    => $_POST["hidden_imgurl"]
 			);
 			$cart_data[] = $item_array;
 		}
 
-		$item_data = json_encode($cart_data);
-		$preserve_time = 360;
+		$item_data = json_encode($cart_data, JSON_UNESCAPED_UNICODE);
+		$preserve_time = 3600;
 		setcookie('shopping_cart', $item_data, time() + $preserve_time);
-		header("location:cart.php?success=1");
+		header("location:product_cart.php?success=1");
 	}
 
 	if(isset($_GET["action"])) {
@@ -42,9 +43,9 @@
 			foreach($cart_data as $keys => $values) {
 				if($cart_data[$keys]['item_id'] == $_GET["id"]) {
 					unset($cart_data[$keys]);
-					$item_data = json_encode($cart_data);
+					$item_data = json_encode($cart_data, JSON_UNESCAPED_UNICODE);
 					setcookie("shoppig_cart", $item_data, time() + $preserve_time);
-					header("location:cart.php?remove=1");
+					header("location:product_cart.php?remove=1");
 				}
 				
 			}
@@ -128,7 +129,7 @@ function change () {
     <header>
       <div id="login_area">
         <ul>
-        <li><a href = "page/product_board/cart.php" target="main_area">장바구니 / </a?</li>
+        <li><a href = "/git_project/project/page/product_board/product_cart.php">장바구니 / </a?</li>
           <?php
             //session_start();
             if(!isset($_SESSION['userid'])) {
@@ -148,7 +149,7 @@ function change () {
     </header>
     <nav>
       <ul>
-        <li><a href = "main.php">홈</a></li>
+        <li><a href = "/">홈</a></li>
         <li><a href = "menu_intro.html" target="main_area">인테리어 소식</a></li>
         <li><a href = "/git_project/project/menu_album.php">앨범</a></li>
         <li><a href = "/git_project/project/menu_product_list.php">소품</a></li>
@@ -191,6 +192,7 @@ function change () {
           <input type="hidden" name="hidden_name" value="<?php echo $board["name"];?>" />
           <input type="hidden" name="hidden_price" value="<?php echo $board["price"];?>" />
           <input type="hidden" name="hidden_id" value="<?php echo $board["idx"];?>" />
+          <input type="hidden" name="hidden_imgurl" value="<?php echo $board["imgurl"];?>" />
         <div id="bo_line"></div>
         <div class= "product_description">Total Price</div>
         <div class= "product_description"><input type="text" name="sum" size="11" readonly />원</div>
@@ -203,7 +205,9 @@ function change () {
 		    </form>
       </div>
     </div>
-    <div class="grid-item">상품설명</div>
+    <div class="grid-item">
+      <h1 id="product_details">상품설명</h1>
+    </div>
 
 	  <!-- 목록, 수정, 삭제 -->
 	  <div id="bo_ser">
