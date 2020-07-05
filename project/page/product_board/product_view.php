@@ -76,8 +76,54 @@
   <title>Welcome, 메인 페이지</title>
 <link rel="stylesheet" type="text/css" href="/git_project/project/css/style_home.css">
 <link rel="stylesheet" type="text/css" href="/git_project/project/css/style_product_view.css">
+<script src="jquery-3.5.1.min.js"></script>
 </head>
-<body>
+<body onload="init();">
+<script language="JavaScript">
+<!--
+var hidden_price;
+var quantity;
+
+function init () {
+	hidden_price = document.form.hidden_price.value;
+	quantity = document.form.quantity.value;
+  document.form.sum.value = hidden_price;
+
+	change();
+}
+
+function add () {
+	hm = document.form.quantity;
+	sum = document.form.sum;
+	hm.value ++ ;
+
+  sum.value = parseInt(hm.value) * hidden_price;
+
+}
+
+function del () {
+	hm = document.form.quantity;
+	sum = document.form.sum;
+		if (hm.value > 1) {
+			hm.value -- ;
+			sum.value = parseInt(hm.value) * hidden_price;
+    }
+
+}
+
+function change () {
+	hm = document.form.quantity;
+	sum = document.form.sum;
+
+		if (hm.value < 0) {
+			hm.value = 0;
+		}
+  sum.value = parseInt(hm.value) * hidden_price;
+}  
+
+
+//-->
+</script>
   <div class = "wrap">
     <header>
       <div id="login_area">
@@ -133,19 +179,21 @@
 			    "<?php echo nl2br("$board[comment]"); ?>"
 		    </div>
 		    <div id="bo_line"></div>
-		    <form method="post">
+		    <form method="post" name="form">
         <div class= "product_description">
             배송비: 착불
         </div>
         <div id="bo_line"></div>
         <div class= "product_description">수량</div>
-
-		      <input type="text" name="quantity" value="1" class="form-control" style= width:50px; />
+          <input type="text" name="quantity" value="1" size="3" onchange="change();" class="form-control" style= width:50px; />
+          <!-- //수량 변경 버튼 -->
+          <input type="button" value=" + " onclick="add();"><input type="button" value=" - " onclick="del();"><br>
           <input type="hidden" name="hidden_name" value="<?php echo $board["name"];?>" />
           <input type="hidden" name="hidden_price" value="<?php echo $board["price"];?>" />
           <input type="hidden" name="hidden_id" value="<?php echo $board["idx"];?>" />
         <div id="bo_line"></div>
         <div class= "product_description">Total Price</div>
+        <div class= "product_description"><input type="text" name="sum" size="11" readonly />원</div>
         <div class="button_area">
 		      <input type="submit" name="add_to_cart" class="button" value="Add to Cart" />
         </div>
@@ -170,20 +218,7 @@
       ::: Contact : sinsy@gmail.com :::
     </footer>
   </div>
-<script type="text/javascript">   
-  function calc(val){
-    var origin = parseInt(val);
-    var quantity = parseInt(val);
-    var total = quantity*origin;
-    
-    if(val == ""){
-        document.getElementById('result').value = "0";
-    }else{
-        document.getElementById('result').value = interest;
-    }
-  }
 
-</script>
 <body onload="javascript:openPopup('popup.html')">
 
 </body>
