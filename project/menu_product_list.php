@@ -36,10 +36,10 @@ ini_set("display_errors", 1);
     </header>
     <nav>
       <ul>
-        <li><a href = "main.php">홈</a></li>
+        <li><a href = "/">홈</a></li>
         <li><a href = "menu_intro.html" target="main_area">인테리어 소식</a></li>
         <li><a href = "/git_project/project/menu_album.php">앨범</a></li>
-        <li><a href = "/git_project/project/page/product_board/menu_product.php" target="main_area">소품</a></li>
+        <li><a href = "/git_project/project/menu_product_list.php">소품</a></li>
         <li><a href = "/git_project/project/menu_board.php">게시판</a></li>
       </ul>
     </nav>
@@ -114,7 +114,7 @@ ini_set("display_errors", 1);
           ?>
               <div class="grid-item">
                 <div class="product_description">
-                  <img src="<?php echo $board["imgurl"];?>" width="150">
+                  <a href="page/product_board/product_view.php?idx=<?php echo $board["idx"];?>"><img src="<?php echo $board["imgurl"];?>" width="200"></a>
                 </div>
                 <div class="product_description" id="product_title">
                   <?php echo $title;?>
