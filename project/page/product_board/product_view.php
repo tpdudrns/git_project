@@ -24,8 +24,8 @@
 			'item_id'        => $_POST["hidden_id"],
 			'item_name'      => $_POST["hidden_name"],
 			'item_price'     => $_POST["hidden_price"],
-      'item_quantity'  => $_POST["quantity"],
-      'item_imgurl'    => $_POST["hidden_imgurl"]
+      		'item_quantity'  => $_POST["quantity"],
+      		'item_imgurl'    => $_POST["hidden_imgurl"]
 			);
 			$cart_data[] = $item_array;
 		}
@@ -81,7 +81,7 @@
 </head>
 <body onload="init();">
 <script language="JavaScript">
-<!--
+
 var hidden_price;
 var quantity;
 
@@ -123,7 +123,7 @@ function change () {
 }  
 
 
-//-->
+
 </script>
   <div class = "wrap">
     <header>
@@ -198,11 +198,19 @@ function change () {
         <div class= "product_description"><input type="text" name="sum" size="11" readonly />원</div>
         <div class="button_area">
 		      <input type="submit" name="add_to_cart" class="button" value="Add to Cart" />
-        </div>
+		</div>
+		</form>
         <div class="button_area">
-          <button class="button">바로구매</button>
-        </div>
-		    </form>
+			<form method="post" action="product_buy.php">
+				<input type="hidden" name="hidden_name" value="<?php echo $board["name"];?>" />
+				<input type="hidden" name="hidden_price" value="<?php echo $board["price"];?>" />
+				<input type="hidden" name="hidden_id" value="<?php echo $board["idx"];?>" />
+				<input type="hidden" name="hidden_imgurl" value="<?php echo $board["imgurl"];?>" />
+
+          	<input type="submit" name="buy" class="button" value="바로구매">
+		</div>
+			</form>
+		    
       </div>
     </div>
     <div class="grid-item">
@@ -213,7 +221,7 @@ function change () {
 	  <div id="bo_ser">
 		<ul>
 			<li><a href="/">[목록으로]</a></li>
-			<li><a href="modify_alpha.php?idx=<?php echo $board['idx']; ?>">[수정]</a></li>
+			<li><a href="modify_product.php?idx=<?php echo $board['idx']; ?>">[수정]</a></li>
 			<li><a href="delete.php?idx=<?php echo $board['idx']; ?>">[삭제]</a></li>
 		</ul>
 	  </div>
