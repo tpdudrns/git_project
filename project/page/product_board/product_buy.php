@@ -12,9 +12,55 @@
 <link rel="stylesheet" type="text/css" href="/git_project/project/css/style_home.css">
 </head>
 <style>
+
+    .product_table {
+      height:40px;
+	    border-top:2px solid black;
+	    border-bottom:1px solid #CCC;
+	    font-weight: bold;
+	    font-size: 17px;
+
+    }
     td {
         text-align: center;
+        border-bottom:1px solid #CCC;
     }
+    
+    .sub_title {
+      width: 300px;
+      height: 50px;
+      text-align: left;
+    }
+
+    #in_content {
+      width: 500px;
+    }
+    .border_line {
+      border-bottom:1px solid #CCC;
+    }
+    #input_textarea_name {
+      width: 500px;
+      height: 30px;
+    }
+    .input_address {
+      width: 500px;
+      height: 30px;
+    }
+    .input_postcode {
+      width: 250px;
+      height: 30px;
+    }
+    .address_area {
+      text-align: left;
+    }
+    .input_address_detail {
+      width: 240px;
+      height: 30px;
+    }
+    .user_input_name {
+      text-align: left;
+    }
+
 </style>
 <body>
   <div class = "wrap">
@@ -54,52 +100,73 @@
        <h2>회원 정보</h2>
        <table>
            <tr>
-               <th>이름:</th>
-               <th><textarea></textarea></th>
+               <th class="sub_title">이름:</th>
+               <th class="user_input_name">
+                  <input type="text" id="input_textarea_name" placeholder="이름">
+               </th>
+           </tr>
+            <tr>
+              <th class="border_line"></th>
+              <th class="border_line"></th>
+            </tr>
+           <tr>
+               <th class="sub_title">연락처:</th>
+               <th class="user_input_name"><input type="text" id="input_textarea_name" placeholder="연락처"></th>
            </tr>
            <tr>
-               <th>연락처:</th>
-               <th><textarea></textarea></th>
+              <th class="border_line"></th>
+              <th class="border_line"></th>
+            </tr>
+           <tr>
+             <th class="sub_title">주소:</th>
+             <th class="address_area">
+              <input type="text" class="input_postcode" id="sample4_postcode" placeholder="우편번호">
+              <input type="button" class="input_postcode" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+              <input type="text" class="input_address" id="sample4_roadAddress" placeholder="도로명주소">
+              <input type="text" class="input_address" id="sample4_jibunAddress" placeholder="지번주소"><br>
+              <span id="guide" style="color:#999;display:none"></span>
+              <input type="text" class="input_address_detail" id="sample4_detailAddress" placeholder="상세주소">
+              <input type="text" class="input_address_detail" id="sample4_extraAddress" placeholder="참고항목">
+             </th>
            </tr>
            <tr>
-               <th>이메일:</th>
-               <th><textarea></textarea></th>
-           </tr>
+              <th class="border_line"></th>
+              <th class="border_line"></th>
+            </tr>
         </table>
-        <h2>배송지 정보</h2>
-            <input type="text" id="sample4_postcode" placeholder="우편번호">
-            <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-            <input type="text" id="sample4_jibunAddress" placeholder="지번주소"><br>
-            <span id="guide" style="color:#999;display:none"></span>
-            <input type="text" id="sample4_detailAddress" placeholder="상세주소">
-            <input type="text" id="sample4_extraAddress" placeholder="참고항목">
         <h2>상품 정보</h2>
         <table>
-        <tr>
-            <th width="200px">상품 이미지</th>
-            <th width="200px">상품명</th>
-            <th width="200px">수량</th>
-            <th width="200px">가격</th>
-        </tr>
-        <tr>
-            <td id="product_name">
-                <img src="<?php echo $imgurl?>">
-            </td>
-            <td>
-                <?php echo $product_name ?>
-            </td>
-            <td>
-                1
-            </td>
-            <td>
-                <?php echo number_format ($price); ?> 원   
-            </td>
-        </tr>
-
-
+            <tr>
+                <th class="product_table" width="200px">상품 이미지</th>
+                <th class="product_table" width="200px">상품명</th>
+                <th class="product_table" width="200px">수량</th>
+                <th class="product_table" width="200px">가격</th>
+            </tr>
+            <tr>
+                <td id="product_name">
+                    <img src="<?php echo $imgurl?>">
+                </td>
+                <td>
+                    <?php echo $product_name ?>
+                </td>
+                <td>
+                    1
+                </td>
+                <td>
+                    <?php echo number_format ($price); ?> 원   
+                </td>
+                <tr>
+                <td colspan="3" align="right" id="total_price_area">착불 배송비</td>
+                <td align="center"id="total_product_price"> 9,000 원</td>
+            </tr>
+            <tr>
+                <td colspan="3" align="right" id="total_price">총 결제 금액</td>
+                <td align="center"id="total_price_value"> <?php echo number_format($total); ?> 원</td>
+            </tr>
 
         </table>
+        <button>구매 취소</button>
+        <button>결제</button>
 
 
        
