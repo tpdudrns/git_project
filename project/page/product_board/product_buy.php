@@ -60,6 +60,31 @@
     .user_input_name {
       text-align: left;
     }
+    .btn_area {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+      
+    }
+
+    #btn_cancel {
+      text-align:center;
+	    background-color: gray;
+	    color: white;
+	    width:300px;
+      height:30px;
+      border:none;
+
+    }
+
+    #btn_buy {
+      border:none;
+      text-align:center;
+	    background-color: black;
+	    color: white;
+	    width:300px;
+	    height:30px;
+    }
 
 </style>
 <body>
@@ -159,29 +184,20 @@
                 <td colspan="3" align="right" id="total_price_area">착불 배송비</td>
                 <td align="center"id="total_product_price"> 9,000 원</td>
             </tr>
+            <?php
+            $total = 0;
+            $total = $total + "9000" + ("1" * $price);
+            ?>
             <tr>
                 <td colspan="3" align="right" id="total_price">총 결제 금액</td>
                 <td align="center"id="total_price_value"> <?php echo number_format($total); ?> 원</td>
             </tr>
 
         </table>
-        <button>구매 취소</button>
-        <button>결제</button>
-
-
-       
-
-   
-
-           
-
-
-       
-
-
-
-
-
+        <div class="btn_area">
+        <input type="submit" id="btn_cancel" value="구매 취소">
+        <input type="submit" id="btn_buy" value="결제하기">
+        </div>
    </article>
     <footer>
       ::: Contact : sinsy@gmail.com :::
