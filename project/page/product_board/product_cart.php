@@ -80,7 +80,7 @@
   #total_price_area {
     background-color:gray;
     color:white;
-    style:bold;
+    
   }
   #total_product_price {
     text-align:center;
@@ -104,6 +104,32 @@
   #product_name {
     font-weight:bold;
   }
+
+  .btn_area {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+      
+    }
+
+    #btn_cancel {
+      text-align:center;
+	    background-color: gray;
+	    color: white;
+	    width:300px;
+      height:30px;
+      border:none;
+
+    }
+
+    #btn_buy {
+      border:none;
+      text-align:center;
+	    background-color: black;
+	    color: white;
+	    width:300px;
+	    height:30px;
+    }
 
 </style>
 <body>
@@ -216,6 +242,10 @@
     }
     ?>
     </table>
+    <div class="btn_area">
+        <input type="submit" id="btn_cancel" value="구매 취소">
+        <input type="submit" id="btn_buy" value="결제하기">
+    </div>
     </div>
    </article>
     <footer>
