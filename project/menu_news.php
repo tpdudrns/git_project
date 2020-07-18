@@ -5,20 +5,35 @@
 <link rel="stylesheet" type="text/css" href="/git_project/project/css/style_home.css">
 </head>
 <style>
-.grid-container {
-  display: grid;
-  grid-template-columns: 300px 500px;
+
+.border_line {
+      border-bottom:1px solid #CCC;
 }
-.grid-item {
+.container_img {
+  float:left;
+  width: 300px;
+  text-align:center;
+  margin-top: 20px;
+  margin-left: 20px;
+  
+}
+.container_article_title {
+  width: 500px;
+  float:left;
+  margin-top: 20px;
+}
+
+.item {
   display: block;
+  height: 250px;
 }
-.dd {
-  width:200px;
-  height:300px;
+dd {
+  padding-top: 10px;
+/*   width:200px;
+  height:300px; */
 }
-.dt {
-  width:200px;
-  height:300px;
+dt {
+  padding-top: 10px;
 }
 
 
@@ -57,28 +72,41 @@
     </nav>
 
    <article>
+  
+  <h2>
+    최근 인테리어 소식
+    <div class="border_line"></div>
+  </h2>
 
-  <div class="grid-container">
-    <div class="grid-item">
+  <div class="container_img">
     <?php 
     include ('simple_html_dom.php');
     $data = file_get_html('http://nsearch.chosun.com/search/total.search?query=%EC%8B%A4%EB%82%B4+%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4&cs_search=gnbtotal');
-    $a = $data->find('dd[class="thumb"]');
-    foreach($a as $b) {
-        echo $b;
-    }
-  ?>
+    $crowling_article_img = $data->find('dd[class="thumb"]');
+    foreach($crowling_article_img as $article_img) {?>
+    <div class="item">
+      <?php echo $article_img; ?>
     </div>
-    <div class="grid-item">
-    <?php 
-    $data2 = file_get_html('http://nsearch.chosun.com/search/total.search?query=%EC%8B%A4%EB%82%B4+%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4&cs_search=gnbtotal');
-    $c = $data2->find('dt[discription="기사 제목"]');
-    foreach($c as $d) {
-        echo $d;
+    <div class="border_line"></div>
+    
+  <?php
     }
   ?>
 
-    </div>
+  </div>
+  <div class="container_article_title">
+    <?php 
+    $data2 = file_get_html('http://nsearch.chosun.com/search/total.search?query=%EC%8B%A4%EB%82%B4+%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4&cs_search=gnbtotal');
+    $c = $data2->find('dt[discription="기사 제목"]');
+    foreach($c as $d) {?>
+      <div class="item">
+        <?php echo $d; ?>
+      </div>
+      <div class="border_line"></div>
+  <?php
+    }
+  ?>
+  
   </div>
 
 
