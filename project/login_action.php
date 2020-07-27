@@ -10,7 +10,7 @@ function Console_log($data){
  
         session_start();
         //include  $_SERVER['DOCUMENT_ROOT']."/git_proejct/proejct/db_info.php";
-        include "db_info.php";
+        include  $_SERVER['DOCUMENT_ROOT']."/db.php";
         //입력 받은 id와 password
         $id=$_POST['id'];
         $pw=$_POST['pw'];
@@ -33,7 +33,7 @@ function Console_log($data){
                         $_SESSION['userid']=$id;
                 ?> <script>
                         alert("로그인 되었습니다.");
-                        location.replace("/index.php");
+                        location.replace("/");
                 </script>
                 <?php
                 
