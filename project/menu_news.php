@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Welcome, 메인 페이지</title>
-<link rel="stylesheet" type="text/css" href="/git_project/project/css/style_home.css">
+<link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
 </head>
 <style>
 
