@@ -1,8 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
-// include  $_SERVER['DOCUMENT_ROOT']."/git_proejct/db_info.php";
-include "db_info.php";
+include  $_SERVER['DOCUMENT_ROOT']."/db.php";
 
 $index = $_GET['idx'];
 $username = $_POST['name'];
