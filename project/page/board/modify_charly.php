@@ -2,11 +2,10 @@
 <?php
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
-	//include $_SERVER['DOCUMENT_ROOT']."/git_project/db_connection.php";
-    include "db_connection.php";
+	include $_SERVER['DOCUMENT_ROOT']."/db_connection.php";
 
     //session_start();
-    $URL = "/git_project/project/menu_board.php";
+    $URL = "/project/menu_board.php";
 
 
 	$index = $_GET['idx'];
@@ -26,12 +25,44 @@ ini_set("display_errors", 1);
 <head>
 <meta charset="UTF-8">
 <title>게시판</title>
+<link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
 <link rel="stylesheet" href="/project/css/style_board_write.css" />
 </head>
 <body>
+<div class = "wrap">
+<header>
+      <div id="login_area">
+        <ul>
+        <li><a href = "/git_project/project/page/product_board/product_cart.php">장바구니 / </a?</li>
+          <?php
+            
+            if(!isset($_SESSION['userid'])) {
+              echo "<li><a href = \"/project/test_login.php\">로그인</a></li>";
+            } else {
+              $id = $_SESSION['userid'];
+              echo "<li>$id 님 환영합니다. / </a></li>";
+              echo "<li><a href = \"/logout_action.php\">로그아웃</a></li>";
+            }
+          ?>
+          <!-- <li><a href = "test_login.php">로그인</a></li> -->
+        </ul>
+      </div>
+      <div id="title">
+        <h1>SY's Interior Story</h1> 
+      </div>
+</header>
+    <nav>
+      <ul>
+        <li><a href = "/">홈</a></li>
+        <li><a href = "/project/menu_news.php">인테리어 소식</a></li>
+        <li><a href = "/project/menu_album.php">앨범</a></li>
+        <li><a href = "/project/menu_product_list.php">소품</a></li>
+        <li><a href = "/project/menu_board.php">게시판</a></li>
+      </ul>
+    </nav>
+    <article>
     <div id="board_write">
-        <h1><a href="/">게시판</a></h1>
-        <h4>글을 수정합니다.</h4>
+        <h1><a href="/">게시글 수정</a></h1>
             <div id="write_area">
                 <form action="modify_ok.php?idx=<?php echo $index; ?>" method="POST">
                     <h2>제목</h2>
@@ -52,7 +83,7 @@ ini_set("display_errors", 1);
                         <input type="password" name="pw" id="upw"  placeholder="비밀번호" required />  
                     </div> -->
                     <div class="bt_se">
-                        <button type="submit">글 작성</button>
+                        <button type="submit">수정</button>
                     </div>
                 </form>
             </div>
@@ -65,5 +96,10 @@ ini_set("display_errors", 1);
                         </script>
         <?php   }
         ?>
-    </body>
+    </article>
+    <footer>
+      ::: Contact : sinsy@gmail.com :::
+    </footer>
+</div>
+</body>
 </html>
