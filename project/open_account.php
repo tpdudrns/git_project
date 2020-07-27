@@ -24,8 +24,8 @@
       <li><input type="password" name= "pw" placeholder="비밀번호" title="비밀번호 입력"></li>
       <li>비밀번호 확인</li>
       <li><input type="password" name= "pw" placeholder="비밀번호" title="비밀번호 입력"></li>
-      <li>닉네임</li>
-      <li><input type="text" name= "nickname" placeholder="닉네임" title="닉네임 입력"></li>
+      <li>이메일</li>
+      <li><input type="text" name= "email" placeholder="이메알 주소" title="닉네임 입력"></li>
       <li><input type="submit" value="Join"></li>
     </ul>
   </section>
