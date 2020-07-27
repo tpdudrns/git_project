@@ -1,0 +1,61 @@
+* {
+    margin: 50 auto;
+  	padding: 0;
+  	font-family: 'Malgun gothic','Sans-Serif','Arial';
+  }
+
+  .tc {
+    text-align:center;
+  }
+
+  tbody {
+    height: 500px;
+  }
+
+  #board {
+    width: 100%;
+    text-align:center;
+    position: static;
+    background:#fff;
+  }
+
+  .list_table {
+    width: 100%;
+    text-align: center;
+  }
+
+  .list_table thead th {
+    height:40px;
+	  border-top:2px solid black;
+	  border-bottom:1px solid #CCC;
+	  font-weight: bold;
+	  font-size: 17px;
+  }
+
+  #write_btn {
+	position: absolute;
+  margin-top:20px;
+  margin-bottom: 5px;
+  right: 0;
+  }
+  #page_num {
+	font-size: 14px;
+	margin-left: 350px;
+	margin-top:500px; 
+  }
+  #page_num ul li {
+	float: left;
+	margin-left: 10px; 
+	text-align: center;
+  }
+  .mark_red {
+	font-weight: bold;
+	color:red;
+  }
+
+  ul {
+  list-style:none;
+  }
+  article {
+    height: 650px;
+  }
