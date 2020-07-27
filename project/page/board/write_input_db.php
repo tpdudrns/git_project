@@ -1,12 +1,12 @@
 <?php
-include  $_SERVER['DOCUMENT_ROOT']."/git_project/db_info.php";
+include  $_SERVER['DOCUMENT_ROOT']."/db.php";
                 
 $id = $_POST['name'];                      //Writer
 //$pw = $_POST['pw'];                        //Password
 $title = $_POST['title'];                  //Title
 $content = $_POST['content'];              //Content
 $date = date('Y-m-d H:i:s');            //Date
-$URL = 'https://interiorsy.tk/git_project/project/menu_board.php';                    //return URL
+$URL = '/';                    //return URL
  
 $query = "insert into freeboard (idx, title, content, date, hit, name) 
         values(null,'$title', '$content', '$date',0, '$id')";
