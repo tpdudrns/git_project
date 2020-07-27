@@ -1,33 +1,40 @@
-/* 게시판 read */
 #board_read {
 	width:700px;
-	position: relative;
+	
 	word-break:break-all;
 }
 #user_info {
+  font-weight: bold;
 	font-size:14px;
+  float: right;
+  
 }
 #user_info ul li {
-	float:left;
 	margin-left:10px;
 }
 #bo_line {
 	width:700px;
 	height:2px;
 	background: gray;
-	margin-top:20px;
+	margin-top:50px;
 }
 #bo_content {
 	margin-top:20px;
+  height: 600px;
 }
 #bo_ser {
 	font-size:14px;
 	color:#333;
-	position: absolute;
-	right: 0;
+  float: right;
+	
 }
 #bo_ser > ul > li {
 	float:left;
 	margin-left:10px;
 }
 li {list-style:none;}
+
+article {
+  padding-left: 80px;
+  height: 850px;
+}
