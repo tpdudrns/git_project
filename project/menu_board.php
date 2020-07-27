@@ -1,67 +1,11 @@
-<?php include "db.php"; ?>
+<?php include  $_SERVER['DOCUMENT_ROOT']."/db_info.php"; ?>
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Welcome, 메인 페이지</title>
-  <link rel="stylesheet" type="text/css" href="/git_project/project/css/style_home.css">
+  <link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
+  <link rel="stylesheet" type="text/css" href="/project/css/style_board_list.css">
 </head>
-<style>
-  * {
-    margin: 50 auto;
-  	padding: 0;
-  	font-family: 'Malgun gothic','Sans-Serif','Arial';
-  }
-
-  .tc {
-    text-align:center;
-  }
-
-  #board {
-    width: 100%;
-    text-align:center;
-    position: static;
-    background:#fff;
-  }
-
-  .list_table {
-    width: 100%;
-    text-align: center;
-  }
-
-  .list_table thead th {
-    height:40px;
-	  border-top:2px solid black;
-	  border-bottom:1px solid #CCC;
-	  font-weight: bold;
-	  font-size: 17px;
-  }
-
-  #write_btn {
-	position: absolute;
-  margin-top:20px;
-  margin-bottom: 5px;
-  right: 0;
-  }
-  #page_num {
-	font-size: 14px;
-	margin-left: 350px;
-	margin-top:30px; 
-  }
-  #page_num ul li {
-	float: left;
-	margin-left: 10px; 
-	text-align: center;
-  }
-  .mark_red {
-	font-weight: bold;
-	color:red;
-  }
-
-  ul {
-  list-style:none;
-  }
-
-</style>
 <body>
   <div class = "wrap">
     <header>
@@ -161,12 +105,12 @@
                 { ?>
                   <a href='ck_read.php?idx=<?php echo $board["idx"];?>'><?php echo $title, $lockimg;
                 }else{ ?>
-                <a href="/git_project/project/page/board/read.php?idx=<?php echo $board["idx"];?>"><?php echo $title; }?></a></td>
+                <a href="/project/page/board/read.php?idx=<?php echo $board["idx"];?>"><?php echo $title; }?></a></td>
                 
                 <td width="120"> <?php echo $board['name']; ?> </td>
                 <td width="100"> <?php echo $board['date']; ?> </td>
                 <td width="100"> <?php echo $board['hit']; ?> </td>
-                </tr>
+            </tr>
           </tbody>
           <?php } ?>
         </table>
@@ -212,7 +156,7 @@
             ?>
           </ul>
         </div>
-        <a href="page/board/write_board.php"><button>글쓰기</button></a>
+        <a style="cursor: hand" href="page/board/write_board.php"><button>글쓰기</button></a>
     </div>
   </div>
     <!--   <footer>
