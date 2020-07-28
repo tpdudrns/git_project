@@ -1,8 +1,11 @@
+# DB 정보 포함된 파일 목록
 db_connection.php
 db_info.php
 db.php
 
+# 네이버 스마트 에디터 목록 
 smarteditor2/
+board_editor/
 
 # Compiled source #
 ###################
