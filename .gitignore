@@ -6,6 +6,7 @@ db.php
 # 네이버 스마트 에디터 목록 
 smarteditor2/
 board_editor/
+ckeditor4/
 
 # Compiled source #
 ###################
