@@ -1,6 +1,6 @@
 <?php
 	include $_SERVER['DOCUMENT_ROOT']."/db_connection.php"; /* db load */
-	session_start();
+	include $_SERVER['DOCUMENT_ROOT']."/login_session.php";
 ?>
 <!DOCTYPE html>
 <head>
@@ -8,6 +8,37 @@
   <title>Welcome, 메인 페이지</title>
 <link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
 <link rel="stylesheet" type="text/css" href="/project/css/style_board_read.css">
+<link rel="stylesheet" type="text/css" href="/project/css/jquery-ui.min.css" />
+
+<!-- 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
+<script type="text/javascript" src="/project/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="/project/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/project/js/common.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".dat_edit_bt").click(function(){
+			/* 가장 가까이있는 dap_lo 클래스에 접근해서 dat_edit 클래스를 불러온다 */
+			var obj = $(this).closest(".dap_lo").find(".dat_edit");
+			obj.dialog({
+				modal:true,
+				width:650,
+				height:200,
+				title:"댓글 수정"});
+		});
+
+	$(".dat_delete_bt").click(function(){
+		var obj = $(this).closest(".dap_lo").find(".dat_delete");
+		obj.dialog({
+			modal:true,
+			width:400,
+			title:"댓글 삭제확인"});
+		});
+
+});
+</script>
 </head>
 <style>
   /* 댓글 */
@@ -36,6 +67,7 @@
 }	
 .dat_edit {
 	display:none;
+	border: solid 1px gray;
 }
 .dap_sm {
 	position: absolute;
@@ -136,40 +168,48 @@
 		  </ul>
 	  </div>
   </div>
+
   <div class="reply_view">
-    <h3>댓글 목록</h3>
+	<h3>댓글 목록</h3>
+	      	<!--- 댓글 입력 폼 -->
+
     <?php
 			$sql3 = mq("select * from reply where con_num='".$number."' order by idx desc");
 			while($reply = $sql3->fetch_array()){ 
-    ?>
-      <div class = "dap_lo">
-        <div><b><?php echo $reply['name'];?></b></div>
-			    <div class="dap_to comt_edit"><?php echo nl2br("$reply[content]"); ?></div>
-			    <div class="rep_me dap_to"><?php echo $reply['date']; ?></div>
-			    <div class="rep_me rep_menu">
-				    <a class="dat_edit_bt" href="#">수정</a>
-				    <a class="dat_delete_bt" href="#">삭제</a>
-          </div>
-        </div>
-        			<!-- 댓글 수정 폼 dialog -->
-			  <div class="dat_edit">
-				  <form method="post" action="rep_modify_ok.php">
-					  <input type="hidden" name="rno" value="<?php echo $reply['idx']; ?>" /><input type="hidden" name="b_no" value="<?php echo $number; ?>">
-					  <textarea name="content" class="dap_edit_t"><?php echo $reply['content']; ?></textarea>
-					  <input type="submit" value="수정하기" class="re_mo_bt">
-				  </form>
-        </div>
-        			<!-- 댓글 삭제 비밀번호 확인 -->
-		  	<div class='dat_delete'>
-				  <form action="reply_delete.php" method="post">
-					  <input type="hidden" name="rno" value="<?php echo $reply['idx']; ?>" /><input type="hidden" name="b_no" value="<?php echo $number; ?>">
-			 		  <p>비밀번호<input type="password" name="pw" /> <input type="submit" value="확인"></p>
-				  </form>
-			  </div>
-      </div>
+	?>
+		<div class="dap_lo">
+			<div><b><?php echo $reply['name'];?></b></div>
+			<div class="dap_to comt_edit"><?php echo nl2br("$reply[content]"); ?></div>
+			<div class="rep_me dap_to"><?php echo $reply['date']; ?></div>
+			<div class="rep_me rep_menu">
+				<?php
+				if ($_SESSION['userid']==$reply['name']) {
+				echo '<a class="dat_edit_bt" href="#">수정  </a>';
+				echo '<a class="dat_delete_bt" href="#">삭제</a>';
+				}
+				?>
+			</div>
+			<!-- 댓글 수정 폼 dialog -->
+			<div class="dat_edit">
+				<form method="post" action="reply_modify_ok.php">
+					<input type="hidden" name="rno" value="<?php echo $reply['idx']; ?>" />
+					<input type="hidden" name="b_no" value="<?php echo $number; ?>">
+					<textarea name="content" class="dap_edit_t"><?php echo $reply['content']; ?></textarea>
+					<input type="submit" value="수정하기" class="re_mo_bt">
+				</form>
+			</div>
+			<!-- 댓글 삭제 비밀번호 확인 -->
+			<div class='dat_delete'>
+				<form action="reply_delete.php" method="post">
+					<input type="hidden" name="rno" value="<?php echo $reply['idx']; ?>" /><input type="hidden" name="b_no" value="<?php echo $number; ?>">
+			 		<p>댓글을 삭제하시겠습니까?</p>
+					<p><input type="submit" value="확인"></p>
+				 </form>
+			</div>
+		</div>
+
 <?php } ?>
-    	<!--- 댓글 입력 폼 -->
-	  <div class="dap_ins">
+	<div class="dap_ins">
 		  <form action="reply_ok.php?idx=<?php echo $number; ?>" method="post">
 			  <input type="hidden" name="dat_user" id="dat_user" class="dat_user" size="15" value="<?=$_SESSION['userid']?>"><?=$_SESSION['userid']?>
 			  <div style="margin-top:10px; ">
@@ -177,7 +217,7 @@
 				  <button id="rep_bt" class="re_bt">댓글</button>
 			  </div>
 		  </form>
-    </div>
+	</div>
 
       
   </article>
@@ -185,27 +225,10 @@
       ::: Contact : sinsy@gmail.com :::
     </footer>
   </div>
-<script type="text/javascript"> 
-  function getCookie(name) {
-     var cookie = document.cookie; 
-     if (document.cookie != "") { 
-       var cookie_array = cookie.split("; ");
-        for ( var index in cookie_array) { 
-          var cookie_name = cookie_array[index].split("=");
-           if (cookie_name[0] == "popupYN") {
-              return cookie_name[1];
-               }
-        } 
-      } return ;
-  } 
-                 
-  function openPopup(url) {
-      var cookieCheck = getCookie("popupYN");
-      if (cookieCheck != "N") window.open(url, '', 'width=450,height=750,left=0,top=0')
-  } 
-</script>
-<body onload="javascript:openPopup('popup.html')">
+<script>
 
+
+</script>
 </body>
 </html>
 
