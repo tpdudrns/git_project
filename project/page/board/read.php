@@ -9,6 +9,70 @@
 <link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
 <link rel="stylesheet" type="text/css" href="/project/css/style_board_read.css">
 </head>
+<style>
+  /* 댓글 */
+.reply_view {
+	width:700px;
+	margin-top:50px; 
+	word-break:break-all;
+}
+.dap_lo {
+	font-size: 14px;
+	padding:10px 0 15px 0;
+	border-bottom: solid 1px gray;
+}
+.dap_to {
+	margin-top:5px;
+}
+.rep_me {
+	font-size:12px;
+}
+.rep_me ul li {
+	float:left;
+	width: 30px;
+}
+.dat_delete {
+	display: none;
+}	
+.dat_edit {
+	display:none;
+}
+.dap_sm {
+	position: absolute;
+	top: 10px;
+}
+.dap_edit_t{
+	width:520px;
+	height:70px;
+	position: absolute;
+	top: 40px;
+}
+.re_mo_bt {
+	position: absolute;
+	top:40px;
+	right: 5px;
+	width: 90px;
+	height: 72px;
+}
+#re_content {
+	width:600px;
+	height: 56px; 
+}
+.dap_ins {
+  margin-top:10px;
+  width:700px;
+}
+.re_bt {
+	position: absolute;
+	width:100px;
+	height:56px;
+	font-size:16px;
+	margin-left: 10px; 
+}
+#foot_box {
+	height: 50px; 
+}
+</style>
 
 <body>
   <div class = "wrap">
@@ -45,7 +109,7 @@
 
    <article>
    <?php
-		$number = $_GET['idx']; /* bno함수에 idx값을 받아와 넣음*/
+		$number = $_GET['idx']; /* number함수에 idx값을 받아와 넣음*/
 		$hit = mysqli_fetch_array(mq("select * from freeboard where idx ='".$number."'"));
 		$hit = $hit['hit'] + 1;
 		$fet = mq("update freeboard set hit = '".$hit."' where idx = '".$number."'");
@@ -56,7 +120,7 @@
   <div id="board_read">
 	  <h2><?php echo $board['title']; ?></h2>
 		<div id="user_info">
-			<?php echo $board['name']; ?> / <?php echo $board['date']; ?> / 조회:<?php echo $board['hit']; ?>
+			작성자: <?php echo $board['name']; ?> / <?php echo $board['date']; ?> / 조회:<?php echo $board['hit']; ?>
     </div>
 		<div id="bo_line"></div>
 		<div id="bo_content">
@@ -72,6 +136,50 @@
 		  </ul>
 	  </div>
   </div>
+  <div class="reply_view">
+    <h3>댓글 목록</h3>
+    <?php
+			$sql3 = mq("select * from reply where con_num='".$number."' order by idx desc");
+			while($reply = $sql3->fetch_array()){ 
+    ?>
+      <div class = "dap_lo">
+        <div><b><?php echo $reply['name'];?></b></div>
+			    <div class="dap_to comt_edit"><?php echo nl2br("$reply[content]"); ?></div>
+			    <div class="rep_me dap_to"><?php echo $reply['date']; ?></div>
+			    <div class="rep_me rep_menu">
+				    <a class="dat_edit_bt" href="#">수정</a>
+				    <a class="dat_delete_bt" href="#">삭제</a>
+          </div>
+        </div>
+        			<!-- 댓글 수정 폼 dialog -->
+			  <div class="dat_edit">
+				  <form method="post" action="rep_modify_ok.php">
+					  <input type="hidden" name="rno" value="<?php echo $reply['idx']; ?>" /><input type="hidden" name="b_no" value="<?php echo $number; ?>">
+					  <textarea name="content" class="dap_edit_t"><?php echo $reply['content']; ?></textarea>
+					  <input type="submit" value="수정하기" class="re_mo_bt">
+				  </form>
+        </div>
+        			<!-- 댓글 삭제 비밀번호 확인 -->
+		  	<div class='dat_delete'>
+				  <form action="reply_delete.php" method="post">
+					  <input type="hidden" name="rno" value="<?php echo $reply['idx']; ?>" /><input type="hidden" name="b_no" value="<?php echo $number; ?>">
+			 		  <p>비밀번호<input type="password" name="pw" /> <input type="submit" value="확인"></p>
+				  </form>
+			  </div>
+      </div>
+<?php } ?>
+    	<!--- 댓글 입력 폼 -->
+	  <div class="dap_ins">
+		  <form action="reply_ok.php?idx=<?php echo $number; ?>" method="post">
+			  <input type="hidden" name="dat_user" id="dat_user" class="dat_user" size="15" value="<?=$_SESSION['userid']?>"><?=$_SESSION['userid']?>
+			  <div style="margin-top:10px; ">
+				  <textarea name="content" class="reply_content" id="re_content" ></textarea>
+				  <button id="rep_bt" class="re_bt">댓글</button>
+			  </div>
+		  </form>
+    </div>
+
+      
   </article>
     <footer>
       ::: Contact : sinsy@gmail.com :::
