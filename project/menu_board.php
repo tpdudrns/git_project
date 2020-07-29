@@ -92,6 +92,9 @@
                   if(strlen($title)>30) {
                     $title=str_replace($board["title"],mb_substr($board["title"],0,30,"utf-8")."...",$board["title"]);
                   }
+                  $sql2 = mq("select * from reply where con_num='".$board['idx']."'");
+                  // 댓글 수 카운트
+                  $rep_count = mysqli_num_rows($sql2);
 /*                   $sql_reply_number = mq("select * from reply where con_num='".$board['idx']."'");
                   $req_count = mysqli_num_rows($sql_reply_number); */ 
           ?>
@@ -105,7 +108,7 @@
                 { ?>
                   <a href='ck_read.php?idx=<?php echo $board["idx"];?>'><?php echo $title, $lockimg;
                 }else{ ?>
-                <a href="/project/page/board/read.php?idx=<?php echo $board["idx"];?>"><?php echo $title; }?></a></td>
+                <a href="/project/page/board/read.php?idx=<?php echo $board["idx"];?>"><?php echo $title; }?><span class="re_ct">  [<?php echo $rep_count; ?>]</span></a></td>
                 
                 <td width="120"> <?php echo $board['name']; ?> </td>
                 <td width="100"> <?php echo $board['date']; ?> </td>
