@@ -27,6 +27,7 @@ ini_set("display_errors", 1);
 <title>게시판</title>
 <link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
 <link rel="stylesheet" href="/project/css/style_board_write.css" />
+<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 </head>
 <body>
 <div class = "wrap">
@@ -78,10 +79,12 @@ ini_set("display_errors", 1);
                     <h2>내용</h2>
                     <div id="in_content">
                         <textarea name="content" id="ucontent" placeholder="내용을 입력하세요" required><?php echo $board['content']; ?></textarea>
+                        <script>
+                          // Replace the <textarea id="editor1"> with a CKEditor 4
+                          // instance, using default configuration.
+                          CKEDITOR.replace( 'content' );
+                        </script>
                     </div>
-<!--                     <div id="in_pw">
-                        <input type="password" name="pw" id="upw"  placeholder="비밀번호" required />  
-                    </div> -->
                     <div class="bt_se">
                         <button type="submit">수정</button>
                     </div>
