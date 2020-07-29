@@ -19,6 +19,7 @@
   <title>Welcome, 메인 페이지</title>
 <link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
 <link rel="stylesheet" type="text/css" href="/project/css/style_board_write.css" />
+<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 </head>
 <body>
   <div class = "wrap">
@@ -71,18 +72,20 @@
                     <div class="wi_line"></div>
                     <h2> 내용 </h2>
                     <div id="in_content">
-                        <textarea name="content" id="ucontent" placeholder="내용을 입력하세요" required></textarea>
+                        <textarea name="content" id="content" placeholder="내용을 입력하세요" required></textarea>
+                        <script>
+                          // Replace the <textarea id="editor1"> with a CKEditor 4
+                          // instance, using default configuration.
+                          CKEDITOR.replace( 'content' );
+                        </script>
                     </div>
-<!--                     <div> 비밀번호 </div>
-                    <div id="in_pw">
-                        <input type="password" name="pw" id="upw"  placeholder="비밀번호" required />   -->
-                    </div>
+              
                     <div class="bt_se">
                         <button type="submit">완료</button>
                     </div>
                 </form>
             </div>
-        </div>
+    </div>
    
 
    </article>
@@ -90,26 +93,7 @@
       ::: Contact : sinsy@gmail.com :::
     </footer>
   </div>
-<script type="text/javascript"> 
-  function getCookie(name) {
-     var cookie = document.cookie; 
-     if (document.cookie != "") { 
-       var cookie_array = cookie.split("; ");
-        for ( var index in cookie_array) { 
-          var cookie_name = cookie_array[index].split("=");
-           if (cookie_name[0] == "popupYN") {
-              return cookie_name[1];
-               }
-        } 
-      } return ;
-  } 
-                 
-  function openPopup(url) {
-      var cookieCheck = getCookie("popupYN");
-      if (cookieCheck != "N") window.open(url, '', 'width=450,height=750,left=0,top=0')
-  } 
-</script>
-<body onload="javascript:openPopup('popup.html')">
+
 
 </body>
 </html>
