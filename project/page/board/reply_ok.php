@@ -1,4 +1,18 @@
 <?php
+  error_reporting(E_ALL);
+  ini_set("display_errors", 1);
+  session_start();
+  $URL = "/";
+  if(!isset($_SESSION['userid'])) {
+  ?>
+  <script>
+  alert("로그인이 필요합니다");
+  location.replace("<?php echo $URL?>");
+  </script>
+  <?php
+  }
+?>
+<?php
 	include $_SERVER['DOCUMENT_ROOT']."/db_info.php";
 
     $number = $_GET['idx'];
