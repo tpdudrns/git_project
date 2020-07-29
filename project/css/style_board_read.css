@@ -20,7 +20,7 @@
 }
 #bo_content {
 	margin-top:20px;
-  height: 600px;
+  	height: 400px;
 }
 #bo_ser {
 	font-size:14px;
@@ -36,5 +36,5 @@ li {list-style:none;}
 
 article {
   padding-left: 80px;
-  height: 850px;
+  
 }
