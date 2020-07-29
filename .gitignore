@@ -42,3 +42,10 @@ ckeditor4/
 ehthumbs.db
 Icon?
 Thumbs.db
+footer.php
+header.php
+index.html
+write.html
+project/db.php
+db_connection.php
+db_info.php
