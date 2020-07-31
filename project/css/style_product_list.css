@@ -37,7 +37,7 @@
   }
   
   img {
-    width: 200px;
+    width: 300px;
     height: 400px;
   }
   
@@ -86,8 +86,10 @@
     }
     #page_num {
       font-size: 14px;
-      margin-left: 260px;
+      margin-left: 360px;
       margin-top:30px; 
+      margin-bottom: 20px;
+      padding-bottom: 20px;
     }
     #page_num ul li {
       float: left;
