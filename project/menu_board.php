@@ -1,12 +1,22 @@
 <?php include  $_SERVER['DOCUMENT_ROOT']."/db_info.php"; ?>
 <!DOCTYPE html>
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-172988251-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-172988251-2');
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Welcome, 메인 페이지</title>
   <link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
   <link rel="stylesheet" type="text/css" href="/project/css/style_board_list.css">
 </head>
 <body>
+  <iframe src="/header.php"></iframe>
   <div class = "wrap">
     <header>
       <div id="login_area">
