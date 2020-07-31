@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-172988251-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-172988251-2');
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Welcome, 메인 페이지</title>
 <link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
@@ -9,15 +18,20 @@
     <header>
       <div id="login_area">
         <ul>
-        <li><a href = "/git_project/project/page/product_board/product_cart.php">장바구니 / </a?</li>
+          <li><a href = "/project/page/product_board/product_cart.php">장바구니 / </a></li>
           <?php
             session_start();
             if(!isset($_SESSION['userid'])) {
               echo "<li><a href = \"/project/test_login.php\">로그인</a></li>";
             } else {
               $id = $_SESSION['userid'];
-              echo "<li>$id 님 환영합니다. / </a></li>";
-              echo "<li><a href = \"/logout_action.php\">로그아웃</a></li>";
+              if ($id == "admin") {
+                echo "<li><a href = \"/admin.php\">관리자 페이지 / </a></li>";
+                echo "<li><a href = \"/project/logout_action.php\">로그아웃</a></li>";
+              } else {
+                echo "<li>$id 님 환영합니다. / </a></li>";
+                echo "<li><a href = \"/project/logout_action.php\">로그아웃</a></li>";
+              }
             }
           ?>
           <!-- <li><a href = "test_login.php">로그인</a></li> -->
