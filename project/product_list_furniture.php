@@ -16,6 +16,7 @@ ini_set("display_errors", 1);
 
   gtag('config', 'UA-172988251-2');
 </script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Welcome, 메인 페이지</title>
 <link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
@@ -28,17 +29,13 @@ ini_set("display_errors", 1);
         <ul>
         <li><a href = "page/product_board/cart.php" target="main_area">장바구니 / </a?</li>
           <?php
+            //session_start();
             if(!isset($_SESSION['userid'])) {
-              echo "<li><a href = \"/project/test_login.php\">로그인</a></li>";
+              echo "<li><a href = \"test_login.php\">로그인</a></li>";
             } else {
               $id = $_SESSION['userid'];
-              if ($id == "admin") {
-                echo "<li><a href = \"/admin.php\">관리자 페이지 / </a></li>";
-                echo "<li><a href = \"/project/logout_action.php\">로그아웃</a></li>";
-              } else {
-                echo "<li>$id 님 환영합니다. / </a></li>";
-                echo "<li><a href = \"/project/logout_action.php\">로그아웃</a></li>";
-              }
+              echo "<li>$id 님 환영합니다. / </a></li>";
+              echo "<li><a href = \"/logout_action.php\">로그아웃</a></li>";
             }
           ?>
           <!-- <li><a href = "test_login.php">로그인</a></li> -->
@@ -116,7 +113,7 @@ ini_set("display_errors", 1);
               //시작번호 (page-1)에서 $list를 곱한다.
               $start_num = ($page-1) * $list_limit_per_page;
               //사용자가 선택한 게시글의 시작번호를 설정
-              $sql_page_starting_number = mq("select * from products order by idx desc limit $start_num, $list_limit_per_page");
+              $sql_page_starting_number = mq("select * from products where category='furniture' order by idx desc limit $start_num, $list_limit_per_page");
               //mq("select * from products order by idx desc limit $start_num, $list_limit_per_page");
               while($board = $sql_page_starting_number->fetch_array()){
                 $title=$board["name"];
@@ -128,7 +125,7 @@ ini_set("display_errors", 1);
           ?>
               <div class="grid-item">
                 <div class="product_description">
-                  <a href="/project/page/product_board/product_view.php?idx=<?php echo $board["idx"];?>"><img src="<?php echo $board["imgurl"];?>" width="200"></a>
+                  <a href="/proejct/page/product_board/product_view.php?idx=<?php echo $board["idx"];?>"><img src="<?php echo $board["imgurl"];?>" width="200"></a>
                 </div>
                 <div class="product_description" id="product_title">
                   <?php echo $title;?>
@@ -187,17 +184,8 @@ ini_set("display_errors", 1);
             ?>
           </ul>
         </div>
-        <?php
-
-            if(isset($_SESSION['userid'])) {
-              if ($_SESSION['userid'] == "admin") {
-                echo "<div><a href= \"/project/page/product_board/write_product.php\"><button>글쓰기</button></a></div>";
-              }
-            } 
-          ?>
-<!--         <div>
         <a href="/project/page/product_board/write_product.php"><button>글쓰기</button></a>
-        </div> -->
+    </div>
   </div>
 
 <!--   <div class="main_image">
