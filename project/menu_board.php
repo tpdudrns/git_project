@@ -16,8 +16,8 @@
   <link rel="stylesheet" type="text/css" href="/project/css/style_board_list.css">
 </head>
 <body>
-  <iframe src="/header.php"></iframe>
   <div class = "wrap">
+  <!-- <iframe class="header" src="/header.php"></iframe> -->
     <header>
       <div id="login_area">
         <ul>
