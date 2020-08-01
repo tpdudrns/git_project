@@ -43,30 +43,32 @@ if ($uploadOk == 0) {
 		/*database에 업로드 정보를 기록한다.
 		- 파일이름(혹은 url)
 		- 파일사이즈
-		- 파일형식
-		*/
+        - 파일형식
+        */
 		$filename = $_FILES["fileToUpload"]["name"];
-		$imgurl = "https://interiorsy.tk/uploads/".$_FILES["fileToUpload"]["name"];
-		$size = $_FILES["fileToUpload"]["size"];
+		$imgurl = "https://systory.ga/uploads/".$_FILES["fileToUpload"]["name"];
+        $size = $_FILES["fileToUpload"]["size"];
+        
+        include  $_SERVER['DOCUMENT_ROOT']."/db.php";
 
         //include_once '.:/usr/share/php/config.php';
-        $servername = "3.34.52.222";
-        $username = "sy";
-        $password = "FJ44ouW*zDALcogAwZuUk^J%OtJM4y$8^6VcqBeD"; 
-        $dbname = "sydb"; 
+        // $servername = "3.34.52.222";
+        // $username = "sy";
+        // $password = "FJ44ouW*zDALcogAwZuUk^J%OtJM4y$8^6VcqBeD"; 
+        // $dbname = "sydb"; 
     
-        $conn = mysqli_connect($servername, $username, $password, $dbname) or die ("db_connection_error");
+        // $conn = mysqli_connect($servername, $username, $password, $dbname) or die ("db_connection_error");
 
         $name = $_POST['name'];                     
         $price = $_POST['price'];                        
         $comment = $_POST['comment'];                  
-        $content = $_POST['content'];              
+        $category = $_POST['category'];              
         $date = date('Y-m-d H:i:s');            
 	
 		//images 테이블에 이미지정보를 저장한다.
-		$sql = "insert into products(name, price, comment, content, date, filename, imgurl, size) values('$name','$price','$comment','$content','$date','$filename','$imgurl','$size')";
-		mysqli_query($conn,$sql);
-		mysqli_close($conn);
+		$sql = "insert into products(name, price, comment, category, date, filename, imgurl, size) values('$name','$price','$comment','$category','$date','$filename','$imgurl','$size')";
+		mysqli_query($connect,$sql);
+		mysqli_close($connect);
 
         echo "<p>The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.</p>";
 		echo "<br><img src=/uploads/". basename( $_FILES["fileToUpload"]["name"]). " width=400>";
