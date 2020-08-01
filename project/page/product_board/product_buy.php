@@ -8,8 +8,14 @@
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<script src="jquery-3.5.1.min.js"></script>
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
+<script>
+    var IMP = window.IMP; // 생략해도 괜찮습니다.
+  IMP.init("imp67523350"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
+</script>
   <title>Welcome, 메인 페이지</title>
-<link rel="stylesheet" type="text/css" href="/git_project/project/css/style_home.css">
+<link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
 </head>
 <style>
 
@@ -121,13 +127,15 @@
     </nav>
 
    <article>
+    <form action="payment_action.php" method="post">
+    <input type="hidden" name="userid" value="<?php echo $id;?>" />
        <h1>Order / 주문하기</h1>
        <h2>회원 정보</h2>
        <table>
            <tr>
                <th class="sub_title">이름:</th>
                <th class="user_input_name">
-                  <input type="text" id="input_textarea_name" placeholder="이름">
+                  <input type="text" name="user_name" id="input_textarea_name" placeholder="이름">
                </th>
            </tr>
             <tr>
@@ -136,7 +144,7 @@
             </tr>
            <tr>
                <th class="sub_title">연락처:</th>
-               <th class="user_input_name"><input type="text" id="input_textarea_name" placeholder="연락처"></th>
+               <th class="user_input_name"><input type="text" name="user_contact" id="input_textarea_name" placeholder="연락처"></th>
            </tr>
            <tr>
               <th class="border_line"></th>
@@ -145,12 +153,12 @@
            <tr>
              <th class="sub_title">주소:</th>
              <th class="address_area">
-              <input type="text" class="input_postcode" id="sample4_postcode" placeholder="우편번호">
+              <input type="text" name="post_code" class="input_postcode" id="sample4_postcode" placeholder="우편번호">
               <input type="button" class="input_postcode" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
               <input type="text" class="input_address" id="sample4_roadAddress" placeholder="도로명주소">
-              <input type="text" class="input_address" id="sample4_jibunAddress" placeholder="지번주소"><br>
+              <input type="text" name="address" class="input_address" id="sample4_jibunAddress" placeholder="지번주소"><br>
               <span id="guide" style="color:#999;display:none"></span>
-              <input type="text" class="input_address_detail" id="sample4_detailAddress" placeholder="상세주소">
+              <input type="text" name="detailed_address" class="input_address_detail" id="sample4_detailAddress" placeholder="상세주소">
               <input type="text" class="input_address_detail" id="sample4_extraAddress" placeholder="참고항목">
              </th>
            </tr>
@@ -192,11 +200,15 @@
                 <td colspan="3" align="right" id="total_price">총 결제 금액</td>
                 <td align="center"id="total_price_value"> <?php echo number_format($total); ?> 원</td>
             </tr>
-
         </table>
+            <input type="hidden" name="product_name" value="<?php echo $product_name;?>" />
+            <input type="hidden" name="quantity" value="1" />
+            <input type="hidden" name="total_price" value="<?php echo $total;?>" />
+            <input type="hidden" name="imgurl" value="<?php echo $imgurl;?>" />
         <div class="btn_area">
-        <input type="submit" id="btn_cancel" value="구매 취소">
+        <button id="btn_cancel"><a href = "/">구매 취소</a></button>
         <input type="submit" id="btn_buy" value="결제하기">
+        </form>
         </div>
    </article>
     <footer>
