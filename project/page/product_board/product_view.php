@@ -1,6 +1,5 @@
 <?php
-  //include $_SERVER['DOCUMENT_ROOT']."/db_connection.php"; /* db load */
-  include "db_connection.php";
+  include $_SERVER['DOCUMENT_ROOT']."/db_connection.php"; /* db load */
 	$message = '';
 
 	if(isset($_POST["add_to_cart"])) {
@@ -75,8 +74,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Welcome, 메인 페이지</title>
-<link rel="stylesheet" type="text/css" href="/git_project/project/css/style_home.css">
-<link rel="stylesheet" type="text/css" href="/git_project/project/css/style_product_view.css">
+<link rel="stylesheet" type="text/css" href="/project/css/style_home.css">
+<link rel="stylesheet" type="text/css" href="/project/css/style_product_view.css">
 <script src="jquery-3.5.1.min.js"></script>
 </head>
 <body onload="init();">
@@ -129,7 +128,7 @@ function change () {
     <header>
       <div id="login_area">
         <ul>
-        <li><a href = "/git_project/project/page/product_board/product_cart.php">장바구니 / </a?</li>
+        <li><a href = "/project/page/product_board/product_cart.php">장바구니 / </a?</li>
           <?php
             //session_start();
             if(!isset($_SESSION['userid'])) {
@@ -151,9 +150,9 @@ function change () {
       <ul>
         <li><a href = "/">홈</a></li>
         <li><a href = "menu_intro.html" target="main_area">인테리어 소식</a></li>
-        <li><a href = "/git_project/project/menu_album.php">앨범</a></li>
-        <li><a href = "/git_project/project/menu_product_list.php">소품</a></li>
-        <li><a href = "/git_project/project/menu_board.php">게시판</a></li>
+        <li><a href = "/project/menu_album.php">앨범</a></li>
+        <li><a href = "/project/menu_product_list.php">소품</a></li>
+        <li><a href = "/project/menu_board.php">게시판</a></li>
       </ul>
     </nav>
     <?php
@@ -166,7 +165,7 @@ function change () {
 	  ?>
     <article>
     <div class="grid-container" id="board_read">
-      <div class="grid-item" style=padding-left:60px;>
+      <div class="grid-item">
         <img src="<?php echo $board["imgurl"];?>">
       </div>
       <div class="grid-item">
@@ -179,7 +178,8 @@ function change () {
 		    <div class="product_description" id="bo_content">
 			    "<?php echo nl2br("$board[comment]"); ?>"
 		    </div>
-		    <div id="bo_line"></div>
+			<div id="bo_line"></div>
+			
 		    <form method="post" name="form">
         <div class= "product_description">
             배송비: 착불
@@ -206,6 +206,7 @@ function change () {
 				<input type="hidden" name="hidden_price" value="<?php echo $board["price"];?>" />
 				<input type="hidden" name="hidden_id" value="<?php echo $board["idx"];?>" />
 				<input type="hidden" name="hidden_imgurl" value="<?php echo $board["imgurl"];?>" />
+				
 
           	<input type="submit" name="buy" class="button" value="바로구매">
 		</div>
@@ -219,12 +220,20 @@ function change () {
 
 	  <!-- 목록, 수정, 삭제 -->
 	  <div id="bo_ser">
-		<ul>
-			<li><a href="/">[목록으로]</a></li>
-			<li><a href="modify_product.php?idx=<?php echo $board['idx']; ?>">[수정]</a></li>
-			<li><a href="delete.php?idx=<?php echo $board['idx']; ?>">[삭제]</a></li>
-		</ul>
+	  <ul>
+	  <?php
+		if(isset($_SESSION['userid'])) {
+  			if ($_SESSION['userid'] == "admin") { ?>
+			  		<li><a href="/">[목록으로]</a></li>
+					<li><a href="modify_product.php?idx=<?php echo $board['idx']; ?>">[수정]</a></li>
+					<li><a href="delete.php?idx=<?php echo $board['idx']; ?>">[삭제]</a></li>
+		<?php
+  			}
+		} 
+	  ?>
+	  </ul>
 	  </div>
+
     </article>
     <footer>
       ::: Contact : sinsy@gmail.com :::
