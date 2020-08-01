@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
+<script data-ad-client="ca-pub-2375894396663694" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-172988251-2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
