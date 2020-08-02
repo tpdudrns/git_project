@@ -172,6 +172,15 @@ $(document).ready(function(){
   <div class="reply_view">
 	<h3>댓글 목록</h3>
 	      	<!--- 댓글 입력 폼 -->
+		<div class="dap_ins">
+		  <form action="reply_ok.php?idx=<?php echo $number; ?>" method="post">
+			  <input type="hidden" name="dat_user" id="dat_user" class="dat_user" size="15" value="<?=$_SESSION['userid']?>"><?=$_SESSION['userid']?>
+			  <div style="margin-top:10px; ">
+				  <textarea name="content" class="reply_content" id="re_content" ></textarea>
+				  <button id="rep_bt" class="re_bt">댓글</button>
+			  </div>
+		  </form>
+		</div>
 
     <?php
 			$sql3 = mq("select * from reply where con_num='".$number."' order by idx desc");
@@ -209,16 +218,6 @@ $(document).ready(function(){
 		</div>
 
 <?php } ?>
-	<div class="dap_ins">
-		  <form action="reply_ok.php?idx=<?php echo $number; ?>" method="post">
-			  <input type="hidden" name="dat_user" id="dat_user" class="dat_user" size="15" value="<?=$_SESSION['userid']?>"><?=$_SESSION['userid']?>
-			  <div style="margin-top:10px; ">
-				  <textarea name="content" class="reply_content" id="re_content" ></textarea>
-				  <button id="rep_bt" class="re_bt">댓글</button>
-			  </div>
-		  </form>
-	</div>
-
       
   </article>
     <footer>
