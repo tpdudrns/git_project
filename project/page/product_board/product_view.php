@@ -1,24 +1,29 @@
 <?php
   include $_SERVER['DOCUMENT_ROOT']."/db_connection.php"; /* db load */
 	$message = '';
-
+	// 장바구니에 추가 버튼을 눌렀을 때의 작동
 	if(isset($_POST["add_to_cart"])) {
+		// 기존에 이미 장바구니 쿠키 데이터가 있었을 때의 작동
 		if(isset($_COOKIE["shopping_cart"])) {
+			// 기존의 쿠키 데이터의 slash를 분리하여 json 객체의 요소들을 분리한다.
 			$cookie_data = stripslashes($_COOKIE["shopping_cart"]);
 			$cart_data = json_decode($cookie_data, true);
 		} else {
-			$cart_daata = array();
+			// 기존의 쿠키 데이터가 존재하지 않는다면 새로운 배열을 만든다.
+			$cart_data = array();
 		}
 
 		$item_id_list = array_column($cart_data, 'item_id');
-
+		// 배열에 같은 아이템이 들어가 있을 경우의 작동
 		if(in_array($_POST["hidden_id"], $item_id_list)) {
+			// 같은 아이템이 이미 있었다면 수량만 더 추가된다.
 			foreach($cart_data as $keys => $values) {
 				if($cart_data[$keys]["item_id"] == $_POST["hidden_id"]) {
 					$cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
 				}
 			}
 		} else {
+			// 배열에 같은 아이템이 없었을 때에는 새로운 배열에 아이템 정보를 넣는다.
 			$item_array = array(
 			'item_id'        => $_POST["hidden_id"],
 			'item_name'      => $_POST["hidden_name"],
@@ -28,47 +33,15 @@
 			);
 			$cart_data[] = $item_array;
 		}
-
+		// 만들어진 배열을 json 객체로 encode 한다.
 		$item_data = json_encode($cart_data, JSON_UNESCAPED_UNICODE);
 		$preserve_time = 3600;
+		// 만들어진 json 객체를 쿠키 데이터로 생성한다.
 		setcookie('shopping_cart', $item_data, time() + $preserve_time);
+		// 쿠키 데이터를 장바구니 페이지로 넘긴다.
 		header("location:product_cart.php?success=1");
 	}
 
-	if(isset($_GET["action"])) {
-		if($_GET["action"] == "delete") {
-			$cookie_data = stripslashes($_COOKIE['shopping_cart']);
-			$cart_data = json_decode($cookie_data, true);
-			foreach($cart_data as $keys => $values) {
-				if($cart_data[$keys]['item_id'] == $_GET["id"]) {
-					unset($cart_data[$keys]);
-					$item_data = json_encode($cart_data, JSON_UNESCAPED_UNICODE);
-					setcookie("shoppig_cart", $item_data, time() + $preserve_time);
-					header("location:product_cart.php?remove=1");
-				}
-				
-			}
-		}
-	}
-
-	if(isset($_GET["success"])) {
-		$message = '
-		<div class="alert alert-success alert-dismissable">
-			<a href="/project/main.php" class="close" data-dismiss="alert"
-				aria-label="close">$times;</a?
-			Item Added into Cart
-		</div>
-		';
-	}
-	if(isset($_GET["remove"])) {
-		$message = '
-			<div class="alert alert-success alert-dismissable">
-				<a href="/project/main.php" class="close" data-dismiss="alert"
-					aria-label="close">$times;</a>
-				Item removed from Cart
-			</div>
-		';
-	}
 ?>
 <!DOCTYPE html>
 <head>
