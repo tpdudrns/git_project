@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+// error_reporting(E_ALL);
+// ini_set("display_errors", 1);
+setcookie("shopping_cart", "", time() - $preserve_time);
 include  $_SERVER['DOCUMENT_ROOT']."/db.php";
 $URL = "/";
 session_start();
