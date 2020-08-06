@@ -49,3 +49,11 @@ write.html
 project/db.php
 db_connection.php
 db_info.php
+project/js/jquery-3.2.1.min.js
+project/js/jquery-3.5.1.min.js
+project/manager_join_action.php
+project/manager_login.php
+project/js/jquery-ui.min.js
+project/css/jquery-ui.min.css
+project/db.php
+db_connection.php
