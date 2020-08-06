@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+// error_reporting(E_ALL);
+// ini_set("display_errors", 1);
 session_start();
 $URL = "/";
 if(!isset($_SESSION['userid'])) {
@@ -102,18 +102,23 @@ location.replace("<?php echo $URL?>");
 
 </style>
 <body>
-  <div class = "wrap">
+<div class = "wrap">
     <header>
       <div id="login_area">
         <ul>
-        <li><a href = "/project/page/product_board/product_cart.php">장바구니 / </a?</li>
+          <li><a href = "/project/page/product_board/product_cart.php">장바구니 / </a></li>
           <?php
             if(!isset($_SESSION['userid'])) {
-              echo "<li><a href = \"test_login.php\">로그인</a></li>";
+              echo "<li><a href = \"/project/test_login.php\">로그인</a></li>";
             } else {
               $id = $_SESSION['userid'];
-              echo "<li>$id 님 환영합니다. / </a></li>";
-              echo "<li><a href = \"/logout_action.php\">로그아웃</a></li>";
+              if ($id == "admin") {
+                echo "<li><a href = \"/admin.php\">관리자 페이지 / </a></li>";
+                echo "<li><a href = \"/project/logout_action.php\">로그아웃</a></li>";
+              } else {
+                echo "<li><a href = \"/mypage.php\">My Page / </a></li>";
+                echo "<li><a href = \"/project/logout_action.php\">로그아웃</a></li>";
+              }
             }
           ?>
           <!-- <li><a href = "test_login.php">로그인</a></li> -->
@@ -126,10 +131,10 @@ location.replace("<?php echo $URL?>");
     <nav>
       <ul>
         <li><a href = "/">홈</a></li>
-        <li><a href = "menu_intro.html" target="main_area">인테리어 소식</a></li>
-        <li><a href = "/git_project/project/menu_album.php">앨범</a></li>
-        <li><a href = "/git_project/project/menu_product_list.php">소품</a></li>
-        <li><a href = "/git_project/project/menu_board.php">게시판</a></li>
+        <li><a href = "/project/menu_news.php">인테리어 소식</a></li>
+        <li><a href = "/project/menu_album.php">앨범</a></li>
+        <li><a href = "/project/menu_product_list.php">소품</a></li>
+        <li><a href = "/project/menu_board.php">게시판</a></li>
       </ul>
     </nav>
 
@@ -312,6 +317,7 @@ location.replace("<?php echo $URL?>");
             }
         }).open();
     }
+  
 </script>
 
 
