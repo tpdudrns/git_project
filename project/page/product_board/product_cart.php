@@ -1,4 +1,55 @@
 <?php
+
+include $_SERVER['DOCUMENT_ROOT']."/db_connection.php"; /* db load */
+$message = '';
+$URL="/";
+// 구매하기 버튼을 누르면 json객체에 장바구니에 있는 상품 데이터를 넣어서 구매 페이지로 넘긴다.
+if(isset($_POST["go_payment"])) {
+  if (!isset($_SESSION['userid'])) {
+    //로그인이 필요합니다.
+    ?>
+    <script>
+    alert("로그인이 필요합니다");
+    location.replace("<?php echo $URL?>");
+    </script>
+    <?php
+  } else {
+    if(isset($_COOKIE["shopping_cart"])) {
+    //결재하기 페이지로 이동한다.
+    header("location:go_payment.php");
+    }
+  }
+  if(isset($_COOKIE["shopping_cart"])) {
+    $cookie_data = stripslashes($_COOKIE["shopping_cart"]);
+    $cart_data = json_decode($cookie_data, true);
+  } else {
+    $cart_data = array();
+  }
+
+  $item_id_list = array_column($cart_data, 'item_id');
+
+  if(in_array($_POST["hidden_id"], $item_id_list)) {
+    foreach($cart_data as $keys => $values) {
+      if($cart_data[$keys]["item_id"] == $_POST["hidden_id"]) {
+        $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+      }
+    }
+  } else {
+    $item_array = array(
+        'item_id'        => $_POST["hidden_id"],
+        'item_name'      => $_POST["hidden_name"],
+        'item_price'     => $_POST["hidden_price"],
+        'item_quantity'  => $_POST["quantity"],
+        'item_imgurl'    => $_POST["hidden_imgurl"]
+    );
+    $cart_data[] = $item_array;
+  }
+
+  $item_data = json_encode($cart_data, JSON_UNESCAPED_UNICODE);
+  $preserve_time = 3600;
+  setcookie('shopping_cart', $item_data, time() + $preserve_time);
+  header("location:product_cart.php?success=1");
+}
         // GET 으로 action이란 변수의 데이터를 받았을 때의 작동
         // 장바구니의 데이터를 추가, 삭제하기 위해 action이란 변수를 이용하여 구현
         if(isset($_GET["action"])) {
@@ -12,8 +63,8 @@
                         unset($cart_data[$keys]);
                         $item_data = json_encode($cart_data);
                         // 쿠키 데이터의 보존시간
-                        $preserve_time = 360;
-                        setcookie("shoppig_cart", $item_data, time() - $preserve_time);
+                        $preserve_time = 3600;
+                        setcookie("shoppig_cart", $item_data, time() + $preserve_time);
                         header("location:product_cart.php?remove=1");
                     }
                     
@@ -133,19 +184,24 @@
 
 </style>
 <body>
-  <div class = "wrap">
+<div class = "wrap">
     <header>
       <div id="login_area">
         <ul>
-        <li><a href = "page/product_board/product_cart.php" target="main_area">장바구니 / </a?</li>
+          <li><a href = "/project/page/product_board/product_cart.php">장바구니 / </a></li>
           <?php
             session_start();
             if(!isset($_SESSION['userid'])) {
-              echo "<li><a href = \"test_login.php\">로그인</a></li>";
+              echo "<li><a href = \"/project/test_login.php\">로그인</a></li>";
             } else {
               $id = $_SESSION['userid'];
-              echo "<li>$id 님 환영합니다. / </a></li>";
-              echo "<li><a href = \"/logout_action.php\">로그아웃</a></li>";
+              if ($id == "admin") {
+                echo "<li><a href = \"/admin.php\">관리자 페이지 / </a></li>";
+                echo "<li><a href = \"/project/logout_action.php\">로그아웃</a></li>";
+              } else {
+                echo "<li><a href = \"/mypage.php\">My Page / </a></li>";
+                echo "<li><a href = \"/project/logout_action.php\">로그아웃</a></li>";
+              }
             }
           ?>
           <!-- <li><a href = "test_login.php">로그인</a></li> -->
@@ -158,10 +214,10 @@
     <nav>
       <ul>
         <li><a href = "/">홈</a></li>
-        <li><a href = "menu_intro.html" target="main_area">인테리어 소식</a></li>
-        <li><a href = "/git_project/project/menu_album.php">앨범</a></li>
-        <li><a href = "/git_project/project/menu_product_list.php">소품</a></li>
-        <li><a href = "/git_project/project/menu_board.php">게시판</a></li>
+        <li><a href = "/project/menu_news.php">인테리어 소식</a></li>
+        <li><a href = "/project/menu_album.php">앨범</a></li>
+        <li><a href = "/project/menu_product_list.php">소품</a></li>
+        <li><a href = "/project/menu_board.php">게시판</a></li>
       </ul>
     </nav>
 
@@ -207,7 +263,7 @@
             <!-- // 장바구니에 항목당 금액*수량 계산 -->
             <td><?php echo number_format($values["item_quantity"] * $values["item_price"]); ?>원
             </td>
-            <td><a href="cart.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>
+            <td><a href="product_cart.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>
         </tr>
         
     <?php
@@ -243,8 +299,15 @@
     ?>
     </table>
     <div class="btn_area">
-        <input type="submit" id="btn_cancel" value="구매 취소">
-        <input type="submit" id="btn_buy" value="결제하기">
+    <?php
+
+            if(isset($_COOKIE["shopping_cart"])) {?>
+              <input type="submit" id="btn_cancel" value="구매 취소">
+              <a href="cart_to_payment.php"> <input id="btn_buy" name="go_payment" class="button" value="구매하러 가기" />
+              </a>
+          <?php
+            } 
+          ?>
     </div>
     </div>
    </article>
@@ -252,26 +315,6 @@
       ::: Contact : sinsy@gmail.com :::
     </footer>
   </div>
-<script type="text/javascript"> 
-  function getCookie(name) {
-     var cookie = document.cookie; 
-     if (document.cookie != "") { 
-       var cookie_array = cookie.split("; ");
-        for ( var index in cookie_array) { 
-          var cookie_name = cookie_array[index].split("=");
-           if (cookie_name[0] == "popupYN") {
-              return cookie_name[1];
-               }
-        } 
-      } return ;
-  } 
-                 
-  function openPopup(url) {
-      var cookieCheck = getCookie("popupYN");
-      if (cookieCheck != "N") window.open(url, '', 'width=450,height=750,left=0,top=0')
-  } 
-</script>
-<body onload="javascript:openPopup('popup.html')">
 
 </body>
 </html>
