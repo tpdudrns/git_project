@@ -1,8 +1,22 @@
 <?php
+  // error_reporting(E_ALL);
+  // ini_set("display_errors", 1);
+  session_start();
+  $URL = "/";
+  if(!isset($_SESSION['userid'])) {
+  ?>
+  <script>
+  alert("로그인이 필요합니다");
+  location.replace("<?php echo $URL?>");
+  </script>
+  <?php
+  }
+?>
+
+<?php
     $product_name = $_POST['hidden_name'];
     $imgurl = $_POST['hidden_imgurl'];
     $price = $_POST['hidden_price'];
-    $quantity = $_POST['hidden_quantity'];
 
 ?>
 <!DOCTYPE html>
@@ -94,19 +108,23 @@
 
 </style>
 <body>
-  <div class = "wrap">
+<div class = "wrap">
     <header>
       <div id="login_area">
         <ul>
-        <li><a href = "/git_project/project/page/product_board/product_cart.php">장바구니 / </a?</li>
+          <li><a href = "/project/page/product_board/product_cart.php">장바구니 / </a></li>
           <?php
-            session_start();
             if(!isset($_SESSION['userid'])) {
-              echo "<li><a href = \"test_login.php\">로그인</a></li>";
+              echo "<li><a href = \"/project/test_login.php\">로그인</a></li>";
             } else {
               $id = $_SESSION['userid'];
-              echo "<li>$id 님 환영합니다. / </a></li>";
-              echo "<li><a href = \"/logout_action.php\">로그아웃</a></li>";
+              if ($id == "admin") {
+                echo "<li><a href = \"/admin.php\">관리자 페이지 / </a></li>";
+                echo "<li><a href = \"/project/logout_action.php\">로그아웃</a></li>";
+              } else {
+                echo "<li><a href = \"/mypage.php\">My Page / </a></li>";
+                echo "<li><a href = \"/project/logout_action.php\">로그아웃</a></li>";
+              }
             }
           ?>
           <!-- <li><a href = "test_login.php">로그인</a></li> -->
@@ -119,10 +137,10 @@
     <nav>
       <ul>
         <li><a href = "/">홈</a></li>
-        <li><a href = "menu_intro.html" target="main_area">인테리어 소식</a></li>
-        <li><a href = "/git_project/project/menu_album.php">앨범</a></li>
-        <li><a href = "/git_project/project/menu_product_list.php">소품</a></li>
-        <li><a href = "/git_project/project/menu_board.php">게시판</a></li>
+        <li><a href = "/project/menu_news.php">인테리어 소식</a></li>
+        <li><a href = "/project/menu_album.php">앨범</a></li>
+        <li><a href = "/project/menu_product_list.php">소품</a></li>
+        <li><a href = "/project/menu_board.php">게시판</a></li>
       </ul>
     </nav>
 
@@ -207,7 +225,8 @@
             <input type="hidden" name="imgurl" value="<?php echo $imgurl;?>" />
         <div class="btn_area">
         <button id="btn_cancel"><a href = "/">구매 취소</a></button>
-        <input type="submit" id="btn_buy" value="결제하기">
+        <!-- <input type="submit" id="btn_buy" value="결제하기"> -->
+        <input id="btn_buy" onclick="requestPay()" value="결제하기">
         </form>
         </div>
    </article>
@@ -271,6 +290,40 @@
                 }
             }
         }).open();
+    }
+
+    // import 결제 함수
+    function requestPay() {
+      // IMP.request_pay(param, callback) 호출
+      IMP.request_pay({ // param
+          pg: "html5_inicis",
+          pay_method: "card",
+          merchant_uid: "ORD20180131-0000011",
+          name: "테스트 제품",
+          amount: 1000,
+          buyer_email: "gildong@gmail.com",
+          buyer_name: "홍길동",
+          buyer_tel: "010-4242-4242",
+          buyer_addr: "서울특별시 강남구 신사동",
+          buyer_postcode: "01181"
+      }, function (rsp) { // callback
+          if (rsp.success) {
+                    // jQuery로 HTTP 요청
+          jQuery.ajax({
+          url: "https://systory.com/payments/complete.php", // 가맹점 서버
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          data: {
+              imp_uid: rsp.imp_uid,
+              merchant_uid: rsp.merchant_uid
+          }
+          }).done(function (data) {
+          // 가맹점 서버 결제 API 성공시 로직
+      })
+          } else {
+            alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+          }
+      });
     }
 </script>
 
