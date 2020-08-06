@@ -68,11 +68,15 @@ if ($uploadOk == 0) {
 		//images 테이블에 이미지정보를 저장한다.
 		$sql = "insert into products(name, price, comment, category, date, filename, imgurl, size) values('$name','$price','$comment','$category','$date','$filename','$imgurl','$size')";
 		mysqli_query($connect,$sql);
-		mysqli_close($connect);
+        mysqli_close($connect);
+        
+        ?>
+        <script>
+                alert("<?php echo "상품이 등록되었습니다."?>");
+        </script>
+        <?php
 
-        echo "<p>The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.</p>";
-		echo "<br><img src=/uploads/". basename( $_FILES["fileToUpload"]["name"]). " width=400>";
-		echo "<br><button type='button' onclick='history.back()'>돌아가기</button>";
+
     } else {
         echo "<p>Sorry, there was an error uploading your file.</p>";
 		echo "<br><button type='button' onclick='history.back()'>돌아가기</button>";
@@ -103,4 +107,5 @@ if($result){
             }
             mysqli_close($connect);*/
     ?>
+<meta http-equiv="refresh" content="0 url=/project/menu_product_list.php"> 
 
